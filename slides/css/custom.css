@@ -69,3 +69,11 @@ a {
 p{
     font-size:0.5em;
 }
+
+pre.prettyprint{
+    font-size: 0.5em;
+}
+
+h2{
+    margin: 20px;
+}
