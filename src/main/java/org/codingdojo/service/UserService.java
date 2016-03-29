@@ -12,9 +12,7 @@ public interface UserService {
 
     User findById(Long id);
 
-    void delete(Long id);
-
-    User findOne(Long id);
-
     List<User> findByName(String name);
+
+    void delete(Long id);
 }

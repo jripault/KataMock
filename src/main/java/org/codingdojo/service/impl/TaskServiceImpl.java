@@ -2,6 +2,7 @@ package org.codingdojo.service.impl;
 
 import org.codingdojo.domain.Task;
 import org.codingdojo.domain.User;
+import org.codingdojo.exception.ResourceNotFoundException;
 import org.codingdojo.repository.TaskRepository;
 import org.codingdojo.service.NotificationService;
 import org.codingdojo.service.TaskService;
@@ -47,7 +48,11 @@ public class TaskServiceImpl implements TaskService {
     @Transactional(readOnly = true)
     public Task findById(Long id) {
         Assert.notNull(id, "id should be not null");
-        return taskRepository.findOne(id);
+        Task task = taskRepository.findOne(id);
+        if (task == null) {
+            throw new ResourceNotFoundException(String.format("Task with id: %s not found", id));
+        }
+        return task;
     }
 
     @Override
@@ -67,27 +72,24 @@ public class TaskServiceImpl implements TaskService {
         Assert.notNull(taskId, "taskId should be not null");
         Assert.notNull(userId, "userId should be not null");
 
-        Task task = this.taskRepository.findOne(taskId);
-        Assert.notNull(task, "taskId should correspond to a valid task");
+        Task task = this.findById(taskId);
         Assert.isTrue(task.isAssignable(), "task is not assignable (done or overdue)");
 
-        User user = this.userService.findOne(userId);
-        Assert.notNull(user, "userId should correspond to a valid newUser");
+        User user = this.userService.findById(userId);
 
         User previousUser = task.getUser();
         task.setUser(user);
 
-        sendNotifications(task, user, previousUser);
+        sendNotifications(task, user, true);
+        sendNotifications(task, previousUser, false);
         return task;
     }
 
-    private void sendNotifications(Task task, User newUser, User previousUser) {
-        if ((previousUser != null) && (previousUser != newUser) && (previousUser.getEmail() != null)) {
-            this.notificationService.send(previousUser.getEmail(), "The task: '" + task.getTitle() + "' has been reassigned");
-        }
-
-        if (newUser.getEmail() != null) {
-            this.notificationService.send(newUser.getEmail(), "The task: '" + task.getTitle() + "' has been assigned to you");
+    private void sendNotifications(Task task, User user, boolean assignation) {
+        if (user.getEmail() != null) {
+            this.notificationService.send(user.getEmail(), "The task: '" + task.getTitle() + (assignation ?  "' has been assigned to you" : "' has been unassigned"));
+        } else{
+            throw new RuntimeException("No email for user" + user.getName());
         }
     }
 }

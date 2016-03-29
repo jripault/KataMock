@@ -39,11 +39,10 @@ public class UserController {
 
     @RequestMapping(path = "{id}")
     public User findById(@PathVariable Long id) {
-        User user = userService.findOne(id);
+        User user = userService.findById(id);
         if (user == null) {
             throw new ResourceNotFoundException(String.format("User with id: %s not found", id));
         }
-
         log.debug("User found with id '{}': {}", id, user);
         return user;
     }

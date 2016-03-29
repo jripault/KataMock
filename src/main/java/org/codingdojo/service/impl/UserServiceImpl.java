@@ -41,22 +41,14 @@ public class UserServiceImpl implements UserService {
         return userRepository.findOne(id);
     }
 
+    @Override
+    public List<User> findByName(String name) {
+        return userRepository.findByName(name);
+    }
 
     @Override
     public void delete(Long id) {
         Assert.notNull(id, "id should be not null");
         userRepository.delete(id);
     }
-
-    @Override
-    public User findOne(Long id) {
-        Assert.notNull(id, "id should be not null");
-        return userRepository.findOne(id);
-    }
-
-    @Override
-    public List<User> findByName(String name) {
-        return userRepository.findByName(name);
-    }
-
 }

@@ -2,7 +2,6 @@ package org.codingdojo.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.codingdojo.domain.Task;
-import org.codingdojo.exception.ResourceNotFoundException;
 import org.codingdojo.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,10 +39,6 @@ public class TaskController {
     @RequestMapping(path = "{id}")
     public Task findById(@PathVariable Long id) {
         Task task = taskService.findById(id);
-        if (task == null) {
-            throw new ResourceNotFoundException(String.format("Task with id: %s not found", id));
-        }
-
         log.debug("Task with id '{}' found: {}", id, task);
         return task;
     }
