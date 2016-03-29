@@ -1,31 +1,25 @@
 package org.codingdojo;
 
-
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.*;
 
 @SuppressWarnings("Duplicates")
-public class NumberPrinterTest {
+@RunWith(MockitoJUnitRunner.class)
+public class MagicalNumberPrinterTest {
 
+    @Mock
     private Printer printer;
 
+    @Mock
     private NumberCalculator numberCalculator;
 
+    @InjectMocks
     private NumberPrinter numberPrinter;
-
-    public NumberPrinterTest() {
-        printer = mock(Printer.class);
-        numberCalculator = mock(NumberCalculator.class);
-
-    }
-
-    @BeforeMethod
-    public void setUp() throws Exception {
-        reset(printer, numberCalculator);
-        numberPrinter = new NumberPrinter(numberCalculator, printer);
-    }
 
     @Test
     public void shouldPrintHundredsResults() {
