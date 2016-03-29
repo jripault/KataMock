@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.validation.ConstraintViolationException;
 
+import static junit.framework.TestCase.fail;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -37,15 +38,19 @@ public class UserRepositoryIT {
         assertThat(repository.exists(user.getId())).isTrue();
     }
 
-    @Test(expected = ConstraintViolationException.class)
-    public void shouldThrowConstraintViolationExceptionIfUserIsInvalidNoMake() {
+    @Test
+    public void shouldThrowConstraintViolationExceptionIfUserIsInvalid() {
         // Given
-        User user = new User().builder().name("userName1").email("user.email1@test.org").build();
+        User user = new User().builder().name("userName1").email("user.email1test.org").build();
 
         // When
-        repository.save(user);
+        try {
+            repository.save(user);
+        } catch (Exception e) {
+            assertThat(e).hasRootCauseInstanceOf(ConstraintViolationException.class);
+        }
 
         // Then
+        fail();
     }
-
 }

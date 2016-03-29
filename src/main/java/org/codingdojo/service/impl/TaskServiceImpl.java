@@ -73,10 +73,9 @@ public class TaskServiceImpl implements TaskService {
         Assert.notNull(userId, "userId should be not null");
 
         Task task = this.findById(taskId);
-        Assert.isTrue(task.isAssignable(), "task is not assignable (done or overdue)");
+        //Assert.isTrue(task.isAssignable(), "task is not assignable (done or overdue)");
 
         User user = this.userService.findById(userId);
-
         User previousUser = task.getUser();
         task.setUser(user);
 
@@ -86,10 +85,12 @@ public class TaskServiceImpl implements TaskService {
     }
 
     private void sendNotifications(Task task, User user, boolean assignation) {
-        if (user.getEmail() != null) {
-            this.notificationService.send(user.getEmail(), "The task: '" + task.getTitle() + (assignation ?  "' has been assigned to you" : "' has been unassigned"));
-        } else{
-            throw new RuntimeException("No email for user" + user.getName());
+        if (user != null) {
+            if (user.getEmail() != null) {
+                this.notificationService.send(user.getEmail(), "The task: '" + task.getTitle() + (assignation ?  "' has been assigned to you" : "' has been unassigned"));
+            } else{
+                throw new RuntimeException("No email for user" + user.getName());
+            }
         }
     }
 }

@@ -4,13 +4,9 @@ import lombok.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.Date;
 
-import static java.time.LocalDateTime.*;
-import static java.time.ZoneId.systemDefault;
+import static java.time.LocalDateTime.now;
 
 @Entity
 @Data
@@ -33,9 +29,7 @@ public class Task {
     @ManyToOne
     private User user;
 
-    @Future
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date deadLine;
+    private LocalDateTime deadLine;
 
     private boolean done = false;
 
@@ -46,7 +40,7 @@ public class Task {
     public boolean isOverdue() {
         return !done &&
                 (deadLine != null) &&
-                now().isAfter(ofInstant(deadLine.toInstant(), systemDefault()));
+                now().isAfter(deadLine);
     }
 
     public boolean isAssignable() {

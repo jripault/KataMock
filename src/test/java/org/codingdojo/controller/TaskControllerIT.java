@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.codingdojo.TasksManagementApplication;
 import org.codingdojo.domain.Task;
 import org.codingdojo.repository.TaskRepository;
-import org.codingdojo.repository.UserRepository;
 import org.junit.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -17,12 +16,11 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import static java.time.LocalDateTime.now;
-import static java.time.ZoneId.systemDefault;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -50,10 +48,6 @@ public class TaskControllerIT {
     private TaskRepository repository;
 
     @Autowired
-    //Used to delete/add the data added for tests (directly invoke the APIs interacting with the DB)
-    private UserRepository userRepository;
-
-    @Autowired
     private ObjectMapper objectMapper;
 
     private MockMvc mockMvc;
@@ -71,8 +65,7 @@ public class TaskControllerIT {
     @Test
     public void shouldCreateValidTask() throws Exception {
         // Given
-        Date now5 = Date.from(now().plusMinutes(5).atZone(systemDefault()).toInstant());
-        Task task = new Task().builder().title("taskTitle").description("description").deadLine(now5).build();
+        Task task = new Task().builder().title("taskTitle").description("description").deadLine(now().plusMinutes(5)).build();
 
         // When
         ResultActions response = mockMvc.perform(post(BASE_URI)
@@ -96,7 +89,7 @@ public class TaskControllerIT {
     @Test
     public void shouldFindTaskById() throws Exception {
         // Given
-        Date now5 = Date.from(now().plusMinutes(5).atZone(systemDefault()).toInstant());
+        LocalDateTime now5 = now().plusMinutes(5);
         Task task1 = new Task().builder().title("taskTitle1").description("description1").deadLine(now5).build();
         Task task2 = new Task().builder().title("taskTitle2").description("description2").deadLine(now5).build();
         Task task3 = new Task().builder().title("taskTitle3").description("description3").deadLine(now5).build();

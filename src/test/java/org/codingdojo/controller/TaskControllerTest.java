@@ -12,9 +12,9 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
+import static java.time.LocalDateTime.now;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -30,7 +30,7 @@ public class TaskControllerTest {
     @Test
     public void shouldCreateValidTask() throws Exception {
         // Given
-        Task task = new Task().builder().title("taskTitle1").description("description1").deadLine(new Date()).build();
+        Task task = new Task().builder().title("taskTitle1").description("description1").deadLine(now()).build();
 
         // When
         controller.create(task);
@@ -64,7 +64,7 @@ public class TaskControllerTest {
     @Test
     public void shouldFindTaskById() throws Exception {
         // Given
-        Task task = new Task().builder().id(1L).title("taskTitle1").description("description1").deadLine(new Date()).build();
+        Task task = new Task().builder().id(1L).title("taskTitle1").description("description1").deadLine(now()).build();
         when(taskService.findById(task.getId())).thenReturn(task);
 
         // When
@@ -77,9 +77,9 @@ public class TaskControllerTest {
     @Test
     public void shouldFindAllTasks() throws Exception {
         // Given
-        Task task1 = new Task().builder().id(1L).title("taskTitle1").description("description1").deadLine(new Date()).build();
-        Task task2 = new Task().builder().id(2L).title("taskTitle1").description("description2").deadLine(new Date()).build();
-        Task task3 = new Task().builder().id(3L).title("taskTitle1").description("description3").deadLine(new Date()).build();
+        Task task1 = new Task().builder().id(1L).title("taskTitle1").description("description1").deadLine(now()).build();
+        Task task2 = new Task().builder().id(2L).title("taskTitle1").description("description2").deadLine(now()).build();
+        Task task3 = new Task().builder().id(3L).title("taskTitle1").description("description3").deadLine(now()).build();
 
         List<Task> tasks = Arrays.asList(task1, task2, task3);
         when(taskService.findAll()).thenReturn(tasks);
@@ -94,7 +94,7 @@ public class TaskControllerTest {
     @Test
     public void shouldFindTaskByTitle() throws Exception {
         // Given
-        Task task = new Task().builder().id(1L).title("taskTitle1").description("description1").deadLine(new Date()).build();
+        Task task = new Task().builder().id(1L).title("taskTitle1").description("description1").deadLine(now()).build();
         List<Task> tasks = Arrays.asList(task);
         when(taskService.findByTitle(task.getTitle())).thenReturn(Arrays.asList(task));
 
@@ -108,8 +108,8 @@ public class TaskControllerTest {
     @Test
     public void shouldFindAllTaskByName() throws Exception {
         // Given
-        Task task1 = new Task().builder().id(1L).title("taskTitle1").description("description1").deadLine(new Date()).build();
-        Task task2 = new Task().builder().id(2L).title("taskTitle2").description("description2").deadLine(new Date()).build();
+        Task task1 = new Task().builder().id(1L).title("taskTitle1").description("description1").deadLine(now()).build();
+        Task task2 = new Task().builder().id(2L).title("taskTitle2").description("description2").deadLine(now()).build();
         List<Task> tasks = Arrays.asList(task1, task2);
         when(taskService.findByTitle(task1.getTitle())).thenReturn(tasks);
 
@@ -123,7 +123,7 @@ public class TaskControllerTest {
     @Test
     public void shouldDeleteTaskIfExist() throws Exception {
         // Given
-        Task task = new Task().builder().id(1L).title("taskTitle1").description("description1").deadLine(new Date()).build();
+        Task task = new Task().builder().id(1L).title("taskTitle1").description("description1").deadLine(now()).build();
 
         // When
         controller.delete(task.getId());

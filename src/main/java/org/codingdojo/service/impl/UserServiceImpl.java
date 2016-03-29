@@ -2,7 +2,6 @@ package org.codingdojo.service.impl;
 
 import org.codingdojo.domain.User;
 import org.codingdojo.repository.UserRepository;
-import org.codingdojo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +11,7 @@ import java.util.List;
 
 @Transactional
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements org.codingdojo.service.UserService {
 
     private final UserRepository userRepository;
 
