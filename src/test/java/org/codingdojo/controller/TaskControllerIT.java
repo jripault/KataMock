@@ -3,6 +3,7 @@ package org.codingdojo.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.codingdojo.TasksManagementApplication;
 import org.codingdojo.domain.Task;
+import org.codingdojo.domain.TaskBuilder;
 import org.codingdojo.repository.TaskRepository;
 import org.junit.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,7 @@ public class TaskControllerIT {
     @Test
     public void shouldCreateValidTask() throws Exception {
         // Given
-        Task task = new Task().builder().title("taskTitle").description("description").deadLine(now().plusMinutes(5)).build();
+        Task task = TaskBuilder.aTask().title("taskTitle").description("description").deadLine(now().plusMinutes(5)).build();
 
         // When
         ResultActions response = mockMvc.perform(post(BASE_URI)
@@ -90,9 +91,9 @@ public class TaskControllerIT {
     public void shouldFindTaskById() throws Exception {
         // Given
         LocalDateTime now5 = now().plusMinutes(5);
-        Task task1 = new Task().builder().title("taskTitle1").description("description1").deadLine(now5).build();
-        Task task2 = new Task().builder().title("taskTitle2").description("description2").deadLine(now5).build();
-        Task task3 = new Task().builder().title("taskTitle3").description("description3").deadLine(now5).build();
+        Task task1 = TaskBuilder.aTask().title("taskTitle1").description("description1").deadLine(now5).build();
+        Task task2 = TaskBuilder.aTask().title("taskTitle2").description("description2").deadLine(now5).build();
+        Task task3 = TaskBuilder.aTask().title("taskTitle3").description("description3").deadLine(now5).build();
         List<Task> tasks = repository.save(Arrays.asList(task1, task2, task3));
         assertThat(repository.count()).isEqualTo(tasks.size());
 

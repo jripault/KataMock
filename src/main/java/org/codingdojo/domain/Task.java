@@ -10,9 +10,6 @@ import static java.time.LocalDateTime.now;
 
 @Entity
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @ToString(exclude = "user")
 public class Task {
@@ -28,6 +25,9 @@ public class Task {
 
     @ManyToOne
     private User user;
+
+    @Setter(AccessLevel.NONE)
+    private LocalDateTime creationDate = LocalDateTime.now();
 
     private LocalDateTime deadLine;
 
@@ -46,4 +46,5 @@ public class Task {
     public boolean isAssignable() {
         return !(isDone() || isOverdue());
     }
+
 }
