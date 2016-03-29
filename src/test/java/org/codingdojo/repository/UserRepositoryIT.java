@@ -1,6 +1,6 @@
 package org.codingdojo.repository;
 
-import org.codingdojo.CarServiceApplication;
+import org.codingdojo.TasksManagementApplication;
 import org.codingdojo.domain.User;
 import org.junit.After;
 import org.junit.Test;
@@ -16,7 +16,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(CarServiceApplication.class)
+@SpringApplicationConfiguration(TasksManagementApplication.class)
 public class UserRepositoryIT {
 
     @Autowired
@@ -71,10 +71,10 @@ public class UserRepositoryIT {
         assertThat(repository.count()).isEqualTo(users.size());
 
         // When
-        User collectedUser = repository.findAll();
+        List<User> all = repository.findAll();
 
         // Then
-        assertThat(collectedUser).isSameAs(user1);
+        assertThat(all).hasSize(users.size());
     }
 
     @Test

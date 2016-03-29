@@ -3,9 +3,9 @@ package org.codingdojo.service.impl;
 import org.codingdojo.domain.Task;
 import org.codingdojo.domain.User;
 import org.codingdojo.repository.TaskRepository;
-import org.codingdojo.repository.UserRepository;
 import org.codingdojo.service.NotificationService;
 import org.codingdojo.service.TaskService;
+import org.codingdojo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,17 +17,17 @@ import java.util.List;
 @Service
 public class TaskServiceImpl implements TaskService {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final TaskRepository taskRepository;
     private final NotificationService notificationService;
 
     @Autowired
-    public TaskServiceImpl(TaskRepository taskRepository, UserRepository userRepository, NotificationService notificationService) {
+    public TaskServiceImpl(TaskRepository taskRepository, UserService userService, NotificationService notificationService) {
         Assert.notNull(taskRepository, "taskRepository must be not null");
-        Assert.notNull(userRepository, "userRepository must be not null");
+        Assert.notNull(userService, "userService must be not null");
         Assert.notNull(notificationService, "notificationService must be not null");
         this.taskRepository = taskRepository;
-        this.userRepository = userRepository;
+        this.userService = userService;
         this.notificationService = notificationService;
     }
 
@@ -71,7 +71,7 @@ public class TaskServiceImpl implements TaskService {
         Assert.notNull(task, "taskId should correspond to a valid task");
         Assert.isTrue(task.isAssignable(), "task is not assignable (done or overdue)");
 
-        User user = this.userRepository.findOne(userId);
+        User user = this.userService.findOne(userId);
         Assert.notNull(user, "userId should correspond to a valid newUser");
 
         User previousUser = task.getUser();
