@@ -14,7 +14,7 @@
 
 <body>
 <section id="coding-dojo" class="coding-dojo title">
-    <h1><img class="img-centered" src="img/codingDojo.png"></h1>
+    <h1><img class="img-centered" src="images/codingDojo.png"></h1>
 </section>
 
 <section id="intro" class="coding-dojo">
@@ -26,10 +26,12 @@
         <li>Pour quoi faire ?</li>
         <!-- l'objectif premier est d'apprendre et non pas de terminer l'excercice -->
         <li class="strike">Terminer l'exercice</li>
-        <li class="subSection">APPRENDRE !</li>
+        <li class="strike">Compétition</li>
+        <li class="subSection">S'améliorer en développement</li>
+        <li class="subSection"><strong>APPRENDRE !</strong></li>
         <li>Terrain d'entrainement</li>
         <!-- Safe (no prod), error is ok, favoriser l'échange -->
-        <li class="strike">Code de prod</li>
+        <li class="strike">Pression</li>
         <li class="subSection">Error is ok</li>
     </ul>
 </section>
@@ -43,38 +45,43 @@
                 <li style="color: #008000">Green</li>
                 <li>Refactor</li>
             </ul>
-        </li><!-- cas particulier avec le legacy -->
-        <li>Baby steps</li> <!-- Write the simplest code that makes the tests pass. -->
+        </li>
         <li>Sujet : Mockons nos tests unitaires</li>
     </ul>
 </section>
 <section id="planning" class="coding-dojo">
-    <h1>Planning du dojo</h1>
+    <h1><i class="fa fa-clock-o"></i> Planning du dojo</h1>
     <ul>
-        <li>La théorie des mocks (XXmin.)</li>
-        <li>Retour sur le FizzBuzz (XXmin.)</li>
-        <li>Itération mocking (XXmin.)</li>
-        <li>Rétro. (10min.)</li>
-        <li>Itération mocking (XXmin.)</li>
+        <li>La théorie des mocks (20min.)</li>
+        <li>Itération FizzBuzz (15min.)</li>
+        <li>Itération mocking (20min.)</li>
+        <li>Rétro. (5min.)</li>
+        <li>Itération mocking (45min.)</li>
         <li>Rétro. & Conclusion (10min.)</li>
     </ul>
 </section>
 <section id="installation" class="coding-dojo">
     <h1><i class="fa fa-download"></i> Installation</h1>
     <ul>
-        <li>Environnement : Ton Eclipse ou pour changer <a href="https://www.jetbrains.com/idea/">IntelliJ</a></li>
-        <li><a href="https://github.com/jripault/KataMock">Le Code</a></li>
+        <li>
+            Environnement : (Eclipse ou pour change <a href="https://www.jetbrains.com/idea/">IntelliJ</a>) +
+            <a href="https://projectlombok.org/download.html">Lombok</a>
+        </li>
+        <li><a href="https://github.com/jripault/KataMock">Le code</a></li>
         <li>Pour les tests :
             <ul>
                 <li><a href="http://junit.org/">Junit</a></li>
-                <li><a href="http://joel-costigliola.github.io/assertj/">AssertJ</a> (librairie d'assertions, fork de
+                <li>
+                    <a href="http://joel-costigliola.github.io/assertj/">AssertJ</a> (librairie d'assertions, fork de
                     FestAssert)
                 </li>
                 <li><a href="http://www.eclemma.org/">Eclemma</a> (plugin couverture de code sous Eclipse)</li>
-                <li><a href="http://infinitest.github.io/">InfiniTest</a> (plugin IntelliJ/Eclipse pour lancer les tests
+                <li>
+                    <a href="http://infinitest.github.io/">InfiniTest</a> (plugin IntelliJ/Eclipse pour lancer les tests
                     unitaires automatiquement à chaque changement)
                 </li>
-                <li><a href="http://moreunit.sourceforge.net/">MoreUnit</a> (plugin IntelliJ/Eclipse pour améliorer
+                <li>
+                    <a href="http://moreunit.sourceforge.net/">MoreUnit</a> (plugin IntelliJ/Eclipse pour améliorer
                     l'intégration de ses tests unitaires dans l'IDE)
                 </li>
             </ul>
@@ -97,10 +104,11 @@
         </li>
     </ul>
 </section>
+
 <section id="theorie" class="coding-dojo">
     <h1><i class="fa"></i>Un peu de théorie</h1>
     <h4>Revenons sur les différents types de tests</h4>
-    <img src="img/testing_pyramid.png" style="float: right; width: 40%">
+    <img src="images/testingPyramid.png" style="float: right; width: 40%">
     <ul class="items">
         <li>Tests unitaires</li>
         <li>Tests d'intégration</li>
@@ -111,24 +119,22 @@
     </ul>
     <p>A chaque niveau, on étend le périmètre du test.</p>
 </section>
-
 <section id="dependances" class="coding-dojo">
     <h1>Et mon test unitaire ?</h1>
     <ul class="items">
         <li>On teste une méthode d'une classe.</li>
-        <li>La classe (System under test ou S.U.T.) peut avoir des dépendances.</li>
         <li>Le test doit être déterministe.</li>
+        <li>La classe (System under test ou S.U.T.) peut avoir des dépendances.</li>
         <li>Ainsi les dépendances doivent être contrôlées.</li>
-        <li><strong>Exemple</strong> : un test unitaire ne doit pas accèder au file system, une base de données, le
+        <li><strong>Exemple</strong> : un test unitaire ne doit pas accéder au file system, une base de données, le
             réseau. Ce sont des éléments variables.
         </li>
     </ul>
 </section>
 <section id="mocks" class="coding-dojo">
-    <h1>Les test double</h1>
-
+    <h1>Les tests double</h1>
     <div style="float: right">
-        <img src="img/test_doubles.gif" style="width: 80%; display: block">
+        <img src="images/testDoubles.gif" style="width: 80%; display: block">
         <em style="font-size: 0.5em">http://xunitpatterns.com/Test%20Double.html</em>
     </div>
     <ul class="items">
@@ -136,18 +142,15 @@
         <li>Chacun a un rôle particulier</li>
         <li>Observer, simuler, vérifier</li>
     </ul>
-
 </section>
 <section id="dummy" class="coding-dojo">
-
     <div>
         <h2>Dummy</h2>
-
         <p>Le plus simple, une dépendance nécessaire pour notre objet testé mais ne représente pas vraiment
-            d'interaction</p>
+            d'interaction
+        </p>
 
         <h2>Fake</h2>
-
         <p>Implémentation simple et rapide d'une dépendance. Exemple : repository</p>
         <pre class="prettyprint">
 public class FakeRepository implements Repository&lt;T&gt;{
@@ -199,7 +202,6 @@ public void testActiveWhenCollaboratorIsActive() throws Exception {
 }
     </pre>
 </section>
-
 <section id="spy" class="coding-dojo">
     <h2>Spy</h2>
     <ul class="items">
@@ -217,11 +219,59 @@ public void testActiveWhenCollaboratorIsActive() throws Exception {
 }
     </pre>
 </section>
-
 <section id="mockito" class="coding-dojo">
-    <p>Mockito</p>
+    <h1><img class="img-centered" src="images/mockito.png"></h1>
+    <ul class="items">
+        <li><a href="http://mockito.github.io/mockito/docs/current/org/mockito/Mockito.html">Documentation</a></li>
+        <li><a href="https://dzone.com/refcardz/mockito">Cheat sheet</a></li>
+    </ul>
 </section>
 
+<section id="iteration1" class="iteration title">
+    <h1>FizzBuzz dans tout ça ? (15 min)</h1>
+</section>
+
+<section id="rules" class="kata">
+    <h1><i class="fa fa-check"></i>Les règles du Kata</h1>
+    <h4>Gestionnaire de tâches</h4>
+    <ul class="items">
+        <li>Implémenter l'assignation d'une tâche à un  utilisateur</li>
+        <li>Notifier l'utilisateur à l'assignation d'une tâche<li>
+        <li>Notifier le précédent utilisateur de sa désassignation<li>
+    </ul>
+</section>
+<section id="iteration2" class="iteration title">
+    <h1>A vos marques, prêts ? Mockez ! (20 min)</h1>
+</section>
+<section id="retro2" class="iteration">
+    <h1>Rétro (5 min)</h1>
+    <ul class="steps">
+        <li>Difficultés rencontrées</li>
+        <li>Type de mock</li>
+        <li>Périmètre du test</li>
+    </ul>
+</section>
+<section id="continue" class="kata">
+    <h1>On continue...</h1>
+    <ul class="items">
+        <li>Controler que la tâche est bien assignable</li>
+        <li>Il faut maintenant pouvoir assigner plusieurs tâches d'un coup</li>
+        <li>... Attention, une tâche non assignable ne doit pas bloquer le traitement</li>
+    </ul>
+</section>
+<section id="iteration3" class="iteration title">
+    <h1>A vos marques, prêts ? Mockez ! (45 min)</h1>
+</section>
+
+<section id="retro3" class="iteration">
+    <h1>Rétro du Dojo (10 min)</h1>
+    <ul class="steps">
+        <li>What went well ?</li>
+        <li>What could be improved ?</li>
+        <li>Actions</li>
+        <li>ROTI</li>
+    </ul>
+</section>
 
 <section id="mocks_languages" class="coding-dojo">
     <p>Framework de mocks dans les autres languages</p>
@@ -230,13 +280,13 @@ public void testActiveWhenCollaboratorIsActive() throws Exception {
 <section id="references" class="coding-dojo">
     <h1><i class="fa fa-book"></i> Références</h1>
     <a href="http://www.amazon.fr/Test-Driven-Development-By-Example/dp/0321146530"><img
-            src="img/testDrivenDevelopmentByExample.jpg"/></a>
+            src="images/testDrivenDevelopmentByExample.jpg"/></a>
     <a href="http://www.amazon.fr/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882"><img
-            src="img/cleanCode.jpg"/></a>
+            src="images/cleanCode.jpg"/></a>
     <a href="http://www.amazon.fr/Effective-Java-Joshua-Bloch/dp/0321356683"><img
-            src="img/refactoringImprovingDesignExistingCode.jpg"/></a>
+            src="images/refactoringImprovingDesignExistingCode.jpg"/></a>
     <a href="http://www.amazon.fr/Refactoring-Improving-Design-Existing-Code/dp/0201485672"><img
-            src="img/effectiveJava.jpeg"/></a>
+            src="images/effectiveJava.jpeg"/></a>
 </section>
 
 <script src="components/jquery/jquery.min.js"></script>
