@@ -53,4 +53,11 @@ public class UserController {
     public void delete(@PathVariable Long id) {
         userService.delete(id);
     }
+
+    @RequestMapping(path = "name/{name}")
+    public List<User> findByName(@PathVariable String name) {
+        List<User> users = userService.findByName(name);
+        log.debug("User(s) with name '{}' found: {} (nb: {})", name, users, users.size());
+        return users;
+    }
 }
