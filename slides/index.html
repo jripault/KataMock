@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="css/ruban.min.css"/>
     <link rel="stylesheet" href="css/ruban-print.min.css" media="print"/>
     <link rel="stylesheet" href="css/custom.css"/>
-    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 </head>
 
 <body>
@@ -257,6 +256,10 @@ public void testActiveWhenCollaboratorIsActive() throws Exception {
         <li>Controler que la tâche est bien assignable</li>
         <li>Il faut maintenant pouvoir assigner plusieurs tâches d'un coup</li>
         <li>... Attention, une tâche non assignable ne doit pas bloquer le traitement</li>
+        <li>
+            A la suppression d'un utilisateur, l'admin du système doit être notifié des tâches qu'il doit réaffecter
+            (ie: non terminées)
+        </li>
     </ul>
 </section>
 <section id="iteration3" class="iteration title">
@@ -274,7 +277,7 @@ public void testActiveWhenCollaboratorIsActive() throws Exception {
 </section>
 
 <section id="mocks_languages" class="coding-dojo">
-    <p>Framework de mocks dans les autres languages</p>
+    <h4>Framework de mocks dans les autres languages</h4>
 </section>
 
 <section id="references" class="coding-dojo">
@@ -293,6 +296,7 @@ public void testActiveWhenCollaboratorIsActive() throws Exception {
 <script src="components/keymaster/keymaster.js"></script>
 <script src="components/hammerjs/hammer.min.js"></script>
 <script src="components/highlightjs/highlight.pack.js"></script>
+<script src="components/prettify/run_prettify.js"></script>
 <script src="js/ruban.min.js"></script>
 <script>
     var ruban = new Ruban({

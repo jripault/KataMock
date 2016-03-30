@@ -78,12 +78,12 @@
       }).on('swipeleft swipeup', this.next).on('swiperight swipedown', this.prev);
     };
 
-    Ruban.prototype.bindClicks = function() {
+    Ruban.prototype.bindClicks = function () {
       var _this = this;
-      this.$ruban.contextmenu(function() {
+      this.$ruban.contextmenu(function () {
         return false;
       });
-      return this.$ruban.mousedown(function(e) {
+      return this.$ruban.mousedown(function (e) {
         switch (e.which) {
           case 1:
             return _this.next();
@@ -93,9 +93,9 @@
       });
     };
 
-    Ruban.prototype.bindMouseWheel = function() {
+    Ruban.prototype.bindMouseWheel = function () {
       var _this = this;
-      return this.$ruban.on('wheel', function(e) {
+      return this.$ruban.on('wheel', function (e) {
         if (e.originalEvent.deltaY > 0) {
           return _this.next();
         } else if (e.originalEvent.deltaY < 0) {
@@ -104,7 +104,7 @@
       });
     };
 
-    Ruban.prototype.bindResize = function() {
+    Ruban.prototype.bindResize = function () {
       var _this = this;
       return $(window).resize(function() {
         _this.resize();
@@ -118,11 +118,11 @@
       return $(window).on('hashchange', this.checkHash);
     };
 
-    Ruban.prototype.disableTransitions = function() {
+    Ruban.prototype.disableTransitions = function () {
       return this.$ruban.css('transition-property', 'none');
     };
 
-    Ruban.prototype.enableTransitions = function() {
+    Ruban.prototype.enableTransitions = function () {
       return this.$ruban.css('transition-property', 'transform');
     };
 
@@ -174,21 +174,21 @@
       return hljs.initHighlightingOnLoad();
     };
 
-    Ruban.prototype.first = function() {
+    Ruban.prototype.first = function () {
       return this.firstSlide();
     };
 
-    Ruban.prototype.firstSlide = function() {
+    Ruban.prototype.firstSlide = function () {
       return this.go(this.getFirstSlide(), {
         direction: 'backward'
       });
     };
 
-    Ruban.prototype.getFirstSlide = function() {
+    Ruban.prototype.getFirstSlide = function () {
       return this.$sections.first();
     };
 
-    Ruban.prototype.isFirstSlide = function() {
+    Ruban.prototype.isFirstSlide = function () {
       return this.$current.is(this.getFirstSlide());
     };
 
@@ -223,25 +223,25 @@
       }
     };
 
-    Ruban.prototype.last = function() {
+    Ruban.prototype.last = function () {
       return this.lastSlide();
     };
 
-    Ruban.prototype.lastSlide = function() {
+    Ruban.prototype.lastSlide = function () {
       return this.go(this.getLastSlide(), {
         direction: 'forward'
       });
     };
 
-    Ruban.prototype.getLastSlide = function() {
+    Ruban.prototype.getLastSlide = function () {
       return this.$sections.last();
     };
 
-    Ruban.prototype.isLastSlide = function() {
+    Ruban.prototype.isLastSlide = function () {
       return this.$current.is(this.getLastSlide());
     };
 
-    Ruban.prototype.isLastStep = function() {
+    Ruban.prototype.isLastStep = function () {
       return !this.hasSteps() || this.index === this.$steps.length - 1;
     };
 
@@ -272,7 +272,7 @@
       }
     };
 
-    Ruban.prototype.checkSteps = function($section, direction) {
+    Ruban.prototype.checkSteps = function ($section, direction) {
       this.$steps = $section.find('.steps').children();
       if (!this.$steps.length) {
         this.$steps = $section.find('.step');
@@ -374,7 +374,7 @@
           if (stripHtmlInToc) {
             title = html = $(this).text();
           } else {
-            $h1 = $(this).clone().find('a').replaceWith(function() {
+            $h1 = $(this).clone().find('a').replaceWith(function () {
               return $(this).text();
             }).end();
             title = $h1.text();

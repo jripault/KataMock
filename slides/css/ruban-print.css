@@ -36,6 +36,7 @@ section details {
   display: block;
   border-top: 2px solid;
 }
+
 .pagination {
   display: none;
 }
