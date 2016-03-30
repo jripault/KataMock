@@ -1,9 +1,5 @@
 package org.codingdojo.exception;
 
-/**
- * User: JRI <julien.ripault@atos.net>
- * Date: 29/03/2016
- */
 public class NoSundayRuleException extends RuntimeException {
     public NoSundayRuleException() {
         super();
