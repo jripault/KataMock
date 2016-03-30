@@ -1,7 +1,12 @@
 package org.codingdojo.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
+import org.codingdojo.domain.Role;
+import org.codingdojo.domain.Task;
 import org.codingdojo.domain.User;
 import org.codingdojo.repository.UserRepository;
+import org.codingdojo.service.NotificationService;
+import org.codingdojo.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,16 +14,22 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 
+@Slf4j
 @Transactional
 @Service
 public class UserServiceImpl implements org.codingdojo.service.UserService {
 
+    private final TaskService taskService;
+
     private final UserRepository userRepository;
 
+    private final NotificationService notificationService;
+
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
-        Assert.notNull(userRepository, "userRepository must be not null");
+    public UserServiceImpl(UserRepository userRepository, TaskService taskService, NotificationService notificationService) {
         this.userRepository = userRepository;
+        this.taskService = taskService;
+        this.notificationService = notificationService;
     }
 
     @Override
@@ -48,6 +59,21 @@ public class UserServiceImpl implements org.codingdojo.service.UserService {
     @Override
     public void delete(Long id) {
         Assert.notNull(id, "id should be not null");
-        userRepository.delete(id);
+        try {
+            User user = this.findById(id);
+            List<Task> tasks = user.getTasks();
+            User admin = this.userRepository.findByRole(Role.ADMIN);
+
+            userRepository.delete(id);
+
+            for (Task task : tasks) {
+                if(!task.isDone()) {
+                    notificationService.send(admin.getEmail(), "message");
+                }
+            }
+
+        } catch (Exception e) {
+            log.error("Error deleting user " + id, e);
+        }
     }
 }

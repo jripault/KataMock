@@ -108,23 +108,4 @@ public class TaskServiceImplTest {
         verify(taskService, times(1)).assignTaskToUser(3L, 10L);
     }
 
-   /* @Test(expected = NoSundayRuleException.class)
-    public void shouldNotCreateTaskOnSundays() throws Exception {
-        // GIVEN
-        LocalDateTime nextSunday = now().with(next(DayOfWeek.SUNDAY));
-
-
-        PowerMockito.mockStatic(LocalDateTime.class);
-        when(LocalDateTime.now()).thenReturn(nextSunday);
-
-        Task task = new Task().builder().id(1L).title("taskTitle").description("description").build();
-        when(taskRepository.findOne(1L)).thenReturn(task);
-
-        // WHEN
-        System.out.println(nextSunday);
-        System.out.println(now());
-        Task assignedTask = taskService.save(task);
-
-        // THEN
-    }*/
 }
