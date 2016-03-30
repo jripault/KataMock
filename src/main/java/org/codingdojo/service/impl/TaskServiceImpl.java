@@ -1,5 +1,6 @@
 package org.codingdojo.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.codingdojo.domain.Task;
 import org.codingdojo.domain.User;
 import org.codingdojo.exception.NoSundayRuleException;
@@ -18,6 +19,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 @Transactional
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -80,7 +82,7 @@ public class TaskServiceImpl implements TaskService {
             try {
                 assignTaskToUser(taskId, userId);
             } catch (Exception e) {
-                log.error(e);
+                log.error("Error on assignation of task " + taskId, e);
             }
         }
     }

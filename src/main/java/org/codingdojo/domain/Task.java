@@ -9,7 +9,10 @@ import java.time.LocalDateTime;
 import static java.time.LocalDateTime.now;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
+@Builder
 @EqualsAndHashCode(of = "id")
 @ToString(exclude = "user")
 public class Task {

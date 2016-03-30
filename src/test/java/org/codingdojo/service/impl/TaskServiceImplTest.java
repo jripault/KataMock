@@ -1,7 +1,6 @@
 package org.codingdojo.service.impl;
 
 import org.codingdojo.domain.Task;
-import org.codingdojo.domain.TaskBuilder;
 import org.codingdojo.domain.User;
 import org.codingdojo.exception.TaskNotAssignableException;
 import org.codingdojo.repository.TaskRepository;
@@ -47,7 +46,7 @@ public class TaskServiceImplTest {
     @Test
     public void shouldAssignTaskToUser() throws Exception {
         // GIVEN
-        Task task = TaskBuilder.aTask().id(1L).title("taskTitle").description("description").deadLine(now().plusDays(1)).build();
+        Task task = new Task().builder().id(1L).title("taskTitle").description("description").deadLine(now().plusDays(1)).build();
         when(taskRepository.findOne(1L)).thenReturn(task);
 
         User user = new User().builder().id(10L).name("userName").email("user.email@test.org").build();
@@ -65,7 +64,7 @@ public class TaskServiceImplTest {
     public void shouldAssignTaskFromPreviousUserToNewUser() throws Exception {
         // GIVEN
         User previousUser = new User().builder().id(10L).name("previousUser").email("previous.user.email@test.org").build();
-        Task task = TaskBuilder.aTask().id(1L).title("taskTitle").description("description").deadLine(now().plusDays(1)).user(previousUser).build();
+        Task task = new Task().builder().id(1L).title("taskTitle").description("description").deadLine(now().plusDays(1)).user(previousUser).build();
         when(taskRepository.findOne(1L)).thenReturn(task);
 
         User user = new User().builder().id(10L).name("userName").email("user.email@test.org").build();
@@ -83,7 +82,7 @@ public class TaskServiceImplTest {
     @Test(expected = TaskNotAssignableException.class)
     public void shouldNotAssignTaskBecauseOverdue() throws Exception {
         // GIVEN
-        Task task = TaskBuilder.aTask().id(1L).title("taskTitle").description("description").deadLine(now().minusDays(1)).build();
+        Task task = new Task().builder().id(1L).title("taskTitle").description("description").deadLine(now().minusDays(1)).build();
         when(taskRepository.findOne(1L)).thenReturn(task);
 
         // WHEN
@@ -118,7 +117,7 @@ public class TaskServiceImplTest {
         PowerMockito.mockStatic(LocalDateTime.class);
         when(LocalDateTime.now()).thenReturn(nextSunday);
 
-        Task task = TaskBuilder.aTask().id(1L).title("taskTitle").description("description").build();
+        Task task = new Task().builder().id(1L).title("taskTitle").description("description").build();
         when(taskRepository.findOne(1L)).thenReturn(task);
 
         // WHEN

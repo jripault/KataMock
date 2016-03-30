@@ -46,11 +46,11 @@ public class UserRepositoryIT {
         // When
         try {
             repository.save(user);
+
+            fail();
         } catch (Exception e) {
             assertThat(e).hasRootCauseInstanceOf(ConstraintViolationException.class);
         }
 
-        // Then
-        fail();
     }
 }

@@ -2,7 +2,6 @@ package org.codingdojo.controller;
 
 import org.assertj.core.api.Assertions;
 import org.codingdojo.domain.Task;
-import org.codingdojo.domain.TaskBuilder;
 import org.codingdojo.exception.ResourceNotFoundException;
 import org.codingdojo.service.impl.TaskServiceImpl;
 import org.hibernate.exception.ConstraintViolationException;
@@ -31,7 +30,7 @@ public class TaskControllerTest {
     @Test
     public void shouldCreateValidTask() throws Exception {
         // Given
-        Task task = TaskBuilder.aTask().title("taskTitle1").description("description1").deadLine(now()).build();
+        Task task = new Task().builder().title("taskTitle1").description("description1").deadLine(now()).build();
 
         // When
         controller.create(task);
@@ -54,7 +53,7 @@ public class TaskControllerTest {
     @Test(expected = ResourceNotFoundException.class)
     public void shouldThrowResourceNotFoundExceptionIfTaskNotExists() throws Exception {
         // Given
-        when(taskService.findById(-1L)).thenReturn(null);
+        when(taskService.findById(-1L)).thenThrow(new ResourceNotFoundException());
 
         // When
         controller.findById(-1L);
@@ -65,7 +64,7 @@ public class TaskControllerTest {
     @Test
     public void shouldFindTaskById() throws Exception {
         // Given
-        Task task = TaskBuilder.aTask().id(1L).title("taskTitle1").description("description1").deadLine(now()).build();
+        Task task = new Task().builder().id(1L).title("taskTitle1").description("description1").deadLine(now()).build();
         when(taskService.findById(task.getId())).thenReturn(task);
 
         // When
@@ -78,9 +77,9 @@ public class TaskControllerTest {
     @Test
     public void shouldFindAllTasks() throws Exception {
         // Given
-        Task task1 = TaskBuilder.aTask().id(1L).title("taskTitle1").description("description1").deadLine(now()).build();
-        Task task2 = TaskBuilder.aTask().id(2L).title("taskTitle1").description("description2").deadLine(now()).build();
-        Task task3 = TaskBuilder.aTask().id(3L).title("taskTitle1").description("description3").deadLine(now()).build();
+        Task task1 = new Task().builder().id(1L).title("taskTitle1").description("description1").deadLine(now()).build();
+        Task task2 = new Task().builder().id(2L).title("taskTitle1").description("description2").deadLine(now()).build();
+        Task task3 = new Task().builder().id(3L).title("taskTitle1").description("description3").deadLine(now()).build();
 
         List<Task> tasks = Arrays.asList(task1, task2, task3);
         when(taskService.findAll()).thenReturn(tasks);
@@ -95,7 +94,7 @@ public class TaskControllerTest {
     @Test
     public void shouldFindTaskByTitle() throws Exception {
         // Given
-        Task task = TaskBuilder.aTask().id(1L).title("taskTitle1").description("description1").deadLine(now()).build();
+        Task task = new Task().builder().id(1L).title("taskTitle1").description("description1").deadLine(now()).build();
         List<Task> tasks = Arrays.asList(task);
         when(taskService.findByTitle(task.getTitle())).thenReturn(Arrays.asList(task));
 
@@ -109,8 +108,8 @@ public class TaskControllerTest {
     @Test
     public void shouldFindAllTaskByName() throws Exception {
         // Given
-        Task task1 = TaskBuilder.aTask().id(1L).title("taskTitle1").description("description1").deadLine(now()).build();
-        Task task2 = TaskBuilder.aTask().id(2L).title("taskTitle2").description("description2").deadLine(now()).build();
+        Task task1 = new Task().builder().id(1L).title("taskTitle1").description("description1").deadLine(now()).build();
+        Task task2 = new Task().builder().id(2L).title("taskTitle2").description("description2").deadLine(now()).build();
         List<Task> tasks = Arrays.asList(task1, task2);
         when(taskService.findByTitle(task1.getTitle())).thenReturn(tasks);
 
@@ -124,7 +123,7 @@ public class TaskControllerTest {
     @Test
     public void shouldDeleteTaskIfExist() throws Exception {
         // Given
-        Task task = TaskBuilder.aTask().id(1L).title("taskTitle1").description("description1").deadLine(now()).build();
+        Task task = new Task().builder().id(1L).title("taskTitle1").description("description1").deadLine(now()).build();
 
         // When
         controller.delete(task.getId());
