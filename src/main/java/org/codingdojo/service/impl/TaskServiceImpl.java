@@ -30,7 +30,6 @@ public class TaskServiceImpl implements TaskService {
 
     @Autowired
     public TaskServiceImpl(TaskRepository taskRepository, UserService userService, NotificationService notificationService) {
-
         this.taskRepository = taskRepository;
         this.userService = userService;
         this.notificationService = notificationService;
