@@ -3,9 +3,7 @@ package org.codingdojo.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.codingdojo.domain.Task;
 import org.codingdojo.domain.User;
-import org.codingdojo.exception.NoSundayRuleException;
 import org.codingdojo.exception.ResourceNotFoundException;
-import org.codingdojo.exception.TaskNotAssignableException;
 import org.codingdojo.repository.TaskRepository;
 import org.codingdojo.service.NotificationService;
 import org.codingdojo.service.TaskService;
@@ -15,22 +13,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import java.time.DayOfWeek;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
 @Transactional
 @Service
 public class TaskServiceImpl implements TaskService {
-    @Autowired
     private UserService userService;
     private final TaskRepository taskRepository;
     private final NotificationService notificationService;
 
     @Autowired
-    public TaskServiceImpl(TaskRepository taskRepository, NotificationService notificationService) {
-
+    public TaskServiceImpl(TaskRepository taskRepository, UserService userService, NotificationService notificationService) {
+        this.userService = userService;
         this.taskRepository = taskRepository;
         this.notificationService = notificationService;
     }
@@ -70,7 +65,7 @@ public class TaskServiceImpl implements TaskService {
         taskRepository.delete(id);
     }
 
-    public void assignTasksToUser(List<Long> taskIds, Long userId){
+    public void assignTasksToUser(List<Long> taskIds, Long userId) {
 
     }
 
@@ -82,8 +77,8 @@ public class TaskServiceImpl implements TaskService {
     private void sendNotifications(Task task, User user, boolean assignation) {
         if (user != null) {
             if (user.getEmail() != null) {
-                this.notificationService.send(user.getEmail(), "The task: '" + task.getTitle() + (assignation ?  "' has been assigned to you" : "' has been unassigned"));
-            } else{
+                this.notificationService.send(user.getEmail(), "The task: '" + task.getTitle() + (assignation ? "' has been assigned to you" : "' has been unassigned"));
+            } else {
                 throw new RuntimeException("No email for user" + user.getName());
             }
         }
