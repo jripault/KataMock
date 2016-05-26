@@ -2,6 +2,7 @@ package org.codingdojo.repository;
 
 import org.codingdojo.TasksManagementApplication;
 import org.codingdojo.domain.User;
+import org.codingdojo.domain.UserBuilder;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +30,7 @@ public class UserRepositoryIT {
     @Test
     public void shouldSaveValidUser() throws InterruptedException {
         // Given
-        User user = new User().builder().name("userName1").email("user.email1@test.org").build();
+        User user = UserBuilder.anUser().name("userName1").email("user.email1@test.org").build();
 
         // When
         repository.save(user);
@@ -41,7 +42,7 @@ public class UserRepositoryIT {
     @Test
     public void shouldThrowConstraintViolationExceptionIfUserIsInvalid() {
         // Given
-        User user = new User().builder().name("userName1").email("user.email1test.org").build();
+        User user = UserBuilder.anUser().name("userName1").email("user.email1test.org").build();
 
         // When
         try {

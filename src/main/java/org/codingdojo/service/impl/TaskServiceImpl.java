@@ -13,21 +13,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import javax.inject.Inject;
 import java.util.List;
 
 @Slf4j
 @Transactional
 @Service
 public class TaskServiceImpl implements TaskService {
+    @Inject
     private UserService userService;
+
     private final TaskRepository taskRepository;
-    private final NotificationService notificationService;
+
+    @Inject
+    private NotificationService notificationService;
 
     @Autowired
-    public TaskServiceImpl(TaskRepository taskRepository, UserService userService, NotificationService notificationService) {
-        this.userService = userService;
+    public TaskServiceImpl(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
-        this.notificationService = notificationService;
     }
 
     @Override

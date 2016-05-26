@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import javax.inject.Inject;
 import java.util.List;
 
 @Slf4j
@@ -24,12 +25,12 @@ public class UserServiceImpl implements org.codingdojo.service.UserService {
 
     private final UserRepository userRepository;
 
-    private final NotificationService notificationService;
+    @Inject
+    private NotificationService notificationService;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, NotificationService notificationService) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.notificationService = notificationService;
     }
 
     @Override
