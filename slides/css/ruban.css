@@ -74,3 +74,7 @@ code strong {
   background: #ddd;
   font-weight: 600;
 }
+
+span.monospace {
+  font-family: monospace;
+}

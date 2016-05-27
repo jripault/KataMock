@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="components/normalize-css/normalize.css"/>
     <link rel="stylesheet" href="components/font-awesome/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="components/highlightjs/styles/tomorrow.css"/>
-    <link rel="stylesheet" href="css/ruban.min.css"/>
+    <link rel="stylesheet" href="css/ruban.css"/>
     <link rel="stylesheet" href="css/ruban-print.min.css" media="print"/>
     <link rel="stylesheet" href="css/custom.css"/>
 </head>
@@ -218,11 +218,29 @@ public void testActiveWhenCollaboratorIsActive() throws Exception {
 }
     </pre>
 </section>
+
 <section id="mockito" class="coding-dojo">
     <h1><img class="img-centered" src="images/mockito.png"></h1>
     <ul class="items">
         <li><a href="http://mockito.github.io/mockito/docs/current/org/mockito/Mockito.html">Documentation</a></li>
         <li><a href="https://dzone.com/refcardz/mockito">Cheat sheet</a></li>
+    </ul>
+</section>
+
+<section id="memo" class="coding-dojo">
+    <h2>Mémo</h2>
+    <ul class="items">
+        <li>Ecrire <span class="monospace">//Given //When //Then</span></li>
+        <li>[<span class="monospace">When</span>] Appeler la seule méthode testée !</li>
+        <li>[<span class="monospace">Then</span>] Ecrire les assertions</li>
+        <li>[<span class="monospace">Given</span>] Ecrire les prédicats (création d'objets utilisés)</li>
+        <li>La méthode testée fait-elle appel à d'autres classes ? (dépendances)
+            <ul>
+                <li>[<span class="monospace">Given</span>] Créer les mocks</li>
+                <li>[<span class="monospace">Given</span>] Mettre en place les comportements : valeurs de retour ou no-op des méthodes de mocks appelées</li>
+                <li>[<span class="monospace">Then</span>] Ecrire les vérifications sur les méthodes de mocks (nombre d'appels, paramètres, séquence)</li>
+            </ul>
+        </li>
     </ul>
 </section>
 
