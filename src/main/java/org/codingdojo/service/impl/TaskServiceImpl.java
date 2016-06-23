@@ -1,6 +1,5 @@
 package org.codingdojo.service.impl;
 
-import lombok.extern.slf4j.Slf4j;
 import org.codingdojo.domain.Task;
 import org.codingdojo.domain.User;
 import org.codingdojo.exception.ResourceNotFoundException;
@@ -16,7 +15,6 @@ import org.springframework.util.Assert;
 import javax.inject.Inject;
 import java.util.List;
 
-@Slf4j
 @Transactional
 @Service
 public class TaskServiceImpl implements TaskService {
