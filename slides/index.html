@@ -221,12 +221,13 @@ public void testActiveWhenCollaboratorIsActive() throws Exception {
 <section id="mockito" class="coding-dojo">
     <h1><img class="img-centered" src="images/mockito.png"></h1>
     <ul class="items">
-        <li><a href="http://mockito.github.io/mockito/docs/current/org/mockito/Mockito.html">Documentation</a></li>
+        <li>
+            <a href="http://mockito.github.io/mockito/docs/current/org/mockito/Mockito.html">Documentation</a>
+            <a href="https://github.com/mockito/mockito/wiki/What's-new-in-Mockito-2"> (what's new in Mockito 2)</a>
+        </li>
         <li><a href="https://dzone.com/refcardz/mockito">Cheat sheet</a></li>
     </ul>
 </section>
-
-
 
 <section id="iteration1" class="iteration title">
     <h1>FizzBuzz dans tout ça ? (20 min)</h1>
@@ -234,13 +235,13 @@ public void testActiveWhenCollaboratorIsActive() throws Exception {
 
 <section id="memo" class="coding-dojo">
     <h2>Mémo</h2>
-    <ul class="items">
+    <ul class="items steps">
         <li>Ecrire <span class="monospace">//Given //When //Then</span></li>
         <li>[<span class="monospace">When</span>] Appeler la seule méthode testée !</li>
         <li>[<span class="monospace">Then</span>] Ecrire les assertions</li>
         <li>[<span class="monospace">Given</span>] Ecrire les prédicats (création d'objets utilisés)</li>
         <li>La méthode testée fait-elle appel à d'autres classes ? (dépendances)
-            <ul>
+            <ul class="steps">
                 <li>[<span class="monospace">Given</span>] Créer les mocks</li>
                 <li>[<span class="monospace">Given</span>] Mettre en place les comportements : valeurs de retour ou no-op des méthodes de mocks appelées</li>
                 <li>[<span class="monospace">Then</span>] Ecrire les vérifications sur les méthodes de mocks (nombre d'appels, paramètres, séquence)</li>
@@ -253,14 +254,24 @@ public void testActiveWhenCollaboratorIsActive() throws Exception {
     <h1><i class="fa fa-check"></i>Les règles du Kata</h1>
     <h4>Gestionnaire de tâches</h4>
     <ul class="items">
-        <li>Implémenter l'assignation d'une tâche à un  utilisateur</li>
+        <li>Implémenter l'assignation d'une tâche à un utilisateur</li>
+    </ul>
+</section>
+<section id="iteration2" class="iteration title">
+    <h1>A vos marques, prêts ? Mockez ! (10 min)</h1>
+</section>
+
+<section id="continue" class="kata">
+    <h1>On continue...</h1>
+    <ul class="items">
         <li>Notifier l'utilisateur à l'assignation d'une tâche<li>
         <li>Notifier le précédent utilisateur de sa désassignation<li>
     </ul>
 </section>
-<section id="iteration2" class="iteration title">
-    <h1>A vos marques, prêts ? Mockez ! (20 min)</h1>
+<section id="iteration3" class="iteration title">
+    <h1>A vos marques, prêts ? Mockez ! (15 min)</h1>
 </section>
+
 <section id="retro2" class="iteration">
     <h1>Rétro (5 min)</h1>
     <ul class="steps">
@@ -269,7 +280,7 @@ public void testActiveWhenCollaboratorIsActive() throws Exception {
         <li>Périmètre du test</li>
     </ul>
 </section>
-<section id="continue" class="kata">
+<section id="continue2" class="kata">
     <h1>On continue...</h1>
     <ul class="items">
         <li>Controler que la tâche est bien assignable</li>
@@ -281,8 +292,8 @@ public void testActiveWhenCollaboratorIsActive() throws Exception {
         </li>
     </ul>
 </section>
-<section id="iteration3" class="iteration title">
-    <h1>A vos marques, prêts ? Mockez ! (40 min)</h1>
+<section id="iteration4" class="iteration title">
+    <h1>A vos marques, prêts ? Mockez ! (35 min)</h1>
 </section>
 
 <section id="retro3" class="iteration">
