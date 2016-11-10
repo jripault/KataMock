@@ -28,7 +28,9 @@ public class TaskController {
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(method = RequestMethod.POST)
     public Task create(@RequestBody Task task) {
-        return taskService.save(task);
+        task = taskService.save(task);
+        LOGGER.debug("Task created: {}", task);
+        return task;
     }
 
     @RequestMapping
@@ -56,10 +58,13 @@ public class TaskController {
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Long id) {
         taskService.delete(id);
+        LOGGER.debug("Task with id '{}' was deleted", id);
     }
 
     @RequestMapping(path = "{taskId}/user/{userId}", method = RequestMethod.PUT)
     public Task assignTaskToUser(@PathVariable Long taskId, @PathVariable Long userId) {
-        return taskService.assignTaskToUser(taskId, userId);
+        Task task = taskService.assignTaskToUser(taskId, userId);
+        LOGGER.debug("Task with id '{}' was assigned to user with id '{}'", taskId, userId);
+        return task;
     }
 }

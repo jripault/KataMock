@@ -18,7 +18,6 @@ public class UserController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
-
     private final UserService userService;
 
     @Autowired
@@ -30,7 +29,9 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(method = RequestMethod.POST)
     public User create(@RequestBody User user) {
-        return userService.save(user);
+        user = userService.save(user);
+        LOGGER.debug("User created: {}", user);
+        return user;
     }
 
     @RequestMapping
@@ -54,6 +55,7 @@ public class UserController {
     @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Long id) {
         userService.delete(id);
+        LOGGER.debug("User with id '{}' was deleted", id);
     }
 
     @RequestMapping(path = "name/{name}")
