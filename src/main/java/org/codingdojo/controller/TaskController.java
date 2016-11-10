@@ -1,8 +1,9 @@
 package org.codingdojo.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import org.codingdojo.domain.Task;
 import org.codingdojo.service.TaskService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.Assert;
@@ -10,10 +11,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Slf4j
 @RestController
 @RequestMapping(path = "/api/task")
 public class TaskController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TaskController.class);
 
     private final TaskService taskService;
 
@@ -32,21 +34,21 @@ public class TaskController {
     @RequestMapping
     public List<Task> findAll() {
         List<Task> tasks = taskService.findAll();
-        log.debug("Task(s): {} (nb: {})", tasks, tasks.size());
+        LOGGER.debug("Task(s): {} (nb: {})", tasks, tasks.size());
         return tasks;
     }
 
     @RequestMapping(path = "{id}")
     public Task findById(@PathVariable Long id) {
         Task task = taskService.findById(id);
-        log.debug("Task with id '{}' found: {}", id, task);
+        LOGGER.debug("Task with id '{}' found: {}", id, task);
         return task;
     }
 
     @RequestMapping(path = "title/{title}")
     public List<Task> findByTitle(@PathVariable String title) {
         List<Task> tasks = taskService.findByTitle(title);
-        log.debug("Task(s) found with title '{}': {} (nb: {})", title, tasks, tasks.size());
+        LOGGER.debug("Task(s) found with title '{}': {} (nb: {})", title, tasks, tasks.size());
         return tasks;
     }
 

@@ -18,6 +18,8 @@ import java.util.stream.Stream;
 
 import static java.time.LocalDateTime.now;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.codingdojo.domain.TaskBuilder.aTask;
+import static org.codingdojo.domain.UserBuilder.anUser;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
@@ -46,10 +48,10 @@ public class TaskServiceImplTest {
     @Test
     public void shouldAssignTaskToUser() throws Exception {
         // GIVEN
-        Task task = new Task().builder().id(1L).title("taskTitle").description("description").deadLine(now().plusDays(1)).build();
+        Task task = aTask().id(1L).title("taskTitle").description("description").deadLine(now().plusDays(1)).build();
         when(taskRepository.findOne(1L)).thenReturn(task);
 
-        User user = new User().builder().id(10L).name("userName").email("user.email@test.org").build();
+        User user = anUser().id(10L).name("userName").email("user.email@test.org").build();
         when(userService.findById(10L)).thenReturn(user);
 
         // WHEN
@@ -63,11 +65,11 @@ public class TaskServiceImplTest {
     @Test
     public void shouldAssignTaskFromPreviousUserToNewUser() throws Exception {
         // GIVEN
-        User previousUser = new User().builder().id(10L).name("previousUser").email("previous.user.email@test.org").build();
-        Task task = new Task().builder().id(1L).title("taskTitle").description("description").deadLine(now().plusDays(1)).user(previousUser).build();
+        User previousUser = anUser().id(10L).name("previousUser").email("previous.user.email@test.org").build();
+        Task task = aTask().id(1L).title("taskTitle").description("description").deadLine(now().plusDays(1)).user(previousUser).build();
         when(taskRepository.findOne(1L)).thenReturn(task);
 
-        User user = new User().builder().id(10L).name("userName").email("user.email@test.org").build();
+        User user = anUser().id(10L).name("userName").email("user.email@test.org").build();
         when(userService.findById(10L)).thenReturn(user);
 
         // WHEN
@@ -82,7 +84,7 @@ public class TaskServiceImplTest {
     @Test(expected = TaskNotAssignableException.class)
     public void shouldNotAssignTaskBecauseOverdue() throws Exception {
         // GIVEN
-        Task task = new Task().builder().id(1L).title("taskTitle").description("description").deadLine(now().minusDays(1)).build();
+        Task task = aTask().id(1L).title("taskTitle").description("description").deadLine(now().minusDays(1)).build();
         when(taskRepository.findOne(1L)).thenReturn(task);
 
         // WHEN

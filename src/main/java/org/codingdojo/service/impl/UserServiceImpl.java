@@ -1,12 +1,13 @@
 package org.codingdojo.service.impl;
 
-import lombok.extern.slf4j.Slf4j;
 import org.codingdojo.domain.Role;
 import org.codingdojo.domain.Task;
 import org.codingdojo.domain.User;
 import org.codingdojo.repository.UserRepository;
 import org.codingdojo.service.NotificationService;
-import org.codingdojo.service.TaskService;
+import org.codingdojo.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,13 +15,13 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 
-@Slf4j
 @Transactional
 @Service
-public class UserServiceImpl implements org.codingdojo.service.UserService {
+public class UserServiceImpl implements UserService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     private final UserRepository userRepository;
-
     private final NotificationService notificationService;
 
     @Autowired
@@ -70,7 +71,7 @@ public class UserServiceImpl implements org.codingdojo.service.UserService {
             }
 
         } catch (Exception e) {
-            log.error("Error deleting user " + id, e);
+            LOGGER.error("Error deleting user " + id, e);
         }
     }
 }

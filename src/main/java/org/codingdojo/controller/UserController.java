@@ -1,9 +1,10 @@
 package org.codingdojo.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import org.codingdojo.domain.User;
 import org.codingdojo.exception.ResourceNotFoundException;
 import org.codingdojo.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.Assert;
@@ -11,10 +12,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Slf4j
 @RestController
 @RequestMapping(path = "/api/user")
 public class UserController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+
 
     private final UserService userService;
 
@@ -33,7 +36,7 @@ public class UserController {
     @RequestMapping
     public List<User> findAll() {
         List<User> users = userService.findAll();
-        log.debug("User(s): {} (nb: {})", users, users.size());
+        LOGGER.debug("User(s): {} (nb: {})", users, users.size());
         return users;
     }
 
@@ -43,7 +46,7 @@ public class UserController {
         if (user == null) {
             throw new ResourceNotFoundException(String.format("User with id: %s not found", id));
         }
-        log.debug("User found with id '{}': {}", id, user);
+        LOGGER.debug("User found with id '{}': {}", id, user);
         return user;
     }
 
@@ -56,7 +59,7 @@ public class UserController {
     @RequestMapping(path = "name/{name}")
     public List<User> findByName(@PathVariable String name) {
         List<User> users = userService.findByName(name);
-        log.debug("User(s) with name '{}' found: {} (nb: {})", name, users, users.size());
+        LOGGER.debug("User(s) with name '{}' found: {} (nb: {})", name, users, users.size());
         return users;
     }
 }

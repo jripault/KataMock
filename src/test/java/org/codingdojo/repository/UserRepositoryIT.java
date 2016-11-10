@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.validation.ConstraintViolationException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.codingdojo.domain.UserBuilder.anUser;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(TasksManagementApplication.class)
@@ -28,7 +29,7 @@ public class UserRepositoryIT {
     @Test
     public void shouldSaveValidUser() throws InterruptedException {
         // Given
-        User user = new User().builder().name("userName1").email("user.email1@test.org").build();
+        User user = anUser().name("userName1").email("user.email1@test.org").build();
 
         // When
         repository.save(user);
@@ -37,10 +38,12 @@ public class UserRepositoryIT {
         assertThat(repository.exists(user.getId())).isTrue();
     }
 
+
+
     @Test(expected = ConstraintViolationException.class)
     public void shouldThrowConstraintViolationExceptionIfUserIsInvalid() {
         // Given
-        User user = new User().builder().name("userName1").email("user.email1test.org").build();
+        User user = anUser().name("userName1").email("user.email1test.org").build();
 
         // When
         repository.save(user);

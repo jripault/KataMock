@@ -1,6 +1,5 @@
 package org.codingdojo.service.impl;
 
-import lombok.extern.slf4j.Slf4j;
 import org.codingdojo.domain.Task;
 import org.codingdojo.domain.User;
 import org.codingdojo.exception.NoSundayRuleException;
@@ -10,6 +9,8 @@ import org.codingdojo.repository.TaskRepository;
 import org.codingdojo.service.NotificationService;
 import org.codingdojo.service.TaskService;
 import org.codingdojo.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,10 +20,11 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Slf4j
 @Transactional
 @Service
 public class TaskServiceImpl implements TaskService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TaskServiceImpl.class);
 
     private final UserService userService;
     private final TaskRepository taskRepository;
@@ -40,7 +42,7 @@ public class TaskServiceImpl implements TaskService {
         Assert.notNull(task, "task should be not null");
 
         LocalDateTime creationDate = task.getCreationDate();
-        if(creationDate.getDayOfWeek() == DayOfWeek.SUNDAY){
+        if (creationDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
             throw new NoSundayRuleException("No task shall be created on a sunday.");
         }
 
@@ -76,12 +78,12 @@ public class TaskServiceImpl implements TaskService {
         taskRepository.delete(id);
     }
 
-    public void assignTasksToUser(List<Long> taskIds, Long userId){
+    public void assignTasksToUser(List<Long> taskIds, Long userId) {
         for (Long taskId : taskIds) {
             try {
                 assignTaskToUser(taskId, userId);
             } catch (Exception e) {
-                log.error("Error on assignation of task " + taskId, e);
+                LOGGER.error("Error on assignation of task " + taskId, e);
             }
         }
     }
@@ -92,7 +94,7 @@ public class TaskServiceImpl implements TaskService {
         Assert.notNull(userId, "userId should be not null");
 
         Task task = this.findById(taskId);
-        if(!task.isAssignable()){
+        if (!task.isAssignable()) {
             throw new TaskNotAssignableException("task is not assignable (done or overdue)");
         }
 
@@ -108,8 +110,8 @@ public class TaskServiceImpl implements TaskService {
     private void sendNotifications(Task task, User user, boolean assignation) {
         if (user != null) {
             if (user.getEmail() != null) {
-                this.notificationService.send(user.getEmail(), "The task: '" + task.getTitle() + (assignation ?  "' has been assigned to you" : "' has been unassigned"));
-            } else{
+                this.notificationService.send(user.getEmail(), "The task: '" + task.getTitle() + (assignation ? "' has been assigned to you" : "' has been unassigned"));
+            } else {
                 throw new RuntimeException("No email for user" + user.getName());
             }
         }

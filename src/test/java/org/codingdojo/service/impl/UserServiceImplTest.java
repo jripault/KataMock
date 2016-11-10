@@ -14,6 +14,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.codingdojo.domain.TaskBuilder.aTask;
+import static org.codingdojo.domain.UserBuilder.anUser;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
 
@@ -36,13 +38,13 @@ public class UserServiceImplTest {
     @Test
     public void shouldNotifyOnUserDeletion() throws Exception {
         // GIVEN
-        User user = new User().builder().build();
+        User user = anUser().build();
         List<Task> tasks = new ArrayList<>();
-        tasks.add(new Task().builder().done(true).build());
-        tasks.add(new Task().builder().done(false).build());
-        tasks.add(new Task().builder().done(false).build());
+        tasks.add(aTask().done(true).build());
+        tasks.add(aTask().done(false).build());
+        tasks.add(aTask().done(false).build());
         user.setTasks(tasks);
-        User admin = new User().builder().email("admin@codingdojo.org").build();
+        User admin = anUser().email("admin@codingdojo.org").build();
 
         when(userRepository.findOne(10L)).thenReturn(user);
         when(userRepository.findByRole(Role.ADMIN)).thenReturn(admin);
