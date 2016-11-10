@@ -19,16 +19,13 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements org.codingdojo.service.UserService {
 
-    private final TaskService taskService;
-
     private final UserRepository userRepository;
 
     private final NotificationService notificationService;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, TaskService taskService, NotificationService notificationService) {
+    public UserServiceImpl(UserRepository userRepository, NotificationService notificationService) {
         this.userRepository = userRepository;
-        this.taskService = taskService;
         this.notificationService = notificationService;
     }
 
@@ -67,7 +64,7 @@ public class UserServiceImpl implements org.codingdojo.service.UserService {
             userRepository.delete(id);
 
             for (Task task : tasks) {
-                if(!task.isDone()) {
+                if (!task.isDone()) {
                     notificationService.send(admin.getEmail(), "message");
                 }
             }

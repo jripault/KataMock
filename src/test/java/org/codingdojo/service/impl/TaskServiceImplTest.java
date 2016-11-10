@@ -96,7 +96,6 @@ public class TaskServiceImplTest {
         // GIVEN
         List<Long> taskIds = Stream.of(1L, 2L, 3L).collect(Collectors.toList());
         TaskServiceImpl taskService = spy(new TaskServiceImpl(taskRepository, userService, notificationService));
-        doReturn(new Task()).when(taskService).findById(anyLong());
         doReturn(new Task()).when(taskService).assignTaskToUser(anyLong(), anyLong());
 
         // WHEN
