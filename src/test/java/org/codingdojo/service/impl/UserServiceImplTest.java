@@ -33,16 +33,19 @@ public class UserServiceImplTest {
     @Test
     public void shouldNotifyOnUserDeletion() throws Exception {
         // GIVEN
-        User admin = anUser().email("admin@codingdojo.org").build();
+        User admin1 = anUser().email("admin1@codingdojo.org").build();
+        User admin2 = anUser().email("admin2@codingdojo.org").build();
+
         User user = anUser().tasks(Arrays.asList(aTask().done(true).build(), aTask().done(false).build(), aTask().done(false).build())).build();
 
         when(userRepository.findOne(10L)).thenReturn(user);
-        when(userRepository.findByRole(Role.ADMIN)).thenReturn(admin);
+        when(userRepository.findByRole(Role.ADMIN)).thenReturn(Arrays.asList(admin1, admin2));
 
         // WHEN
         userService.delete(10L);
 
         // THEN
-        verify(notificationService, times(2)).send(eq(admin.getEmail()), anyString());
+        verify(notificationService, times(2)).send(eq(admin1.getEmail()), anyString());
+        verify(notificationService, times(2)).send(eq(admin2.getEmail()), anyString());
     }
 }

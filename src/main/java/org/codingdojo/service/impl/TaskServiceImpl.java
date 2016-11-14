@@ -68,6 +68,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     @Transactional(readOnly = true)
     public List<Task> findByTitle(String title) {
+        Assert.notNull(title, "title should be not null");
         return taskRepository.findByTitle(title);
     }
 
