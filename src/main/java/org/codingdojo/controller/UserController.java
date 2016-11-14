@@ -27,21 +27,21 @@ public class UserController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public User create(@RequestBody User user) {
         user = userService.save(user);
         LOGGER.debug("User created: {}", user);
         return user;
     }
 
-    @RequestMapping
+    @GetMapping
     public List<User> findAll() {
         List<User> users = userService.findAll();
         LOGGER.debug("User(s): {} (nb: {})", users, users.size());
         return users;
     }
 
-    @RequestMapping(path = "{id}")
+    @GetMapping(path = "{id}")
     public User findById(@PathVariable Long id) {
         User user = userService.findById(id);
         if (user == null) {
@@ -52,13 +52,13 @@ public class UserController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(path = "{id}")
     public void delete(@PathVariable Long id) {
         userService.delete(id);
         LOGGER.debug("User with id '{}' was deleted", id);
     }
 
-    @RequestMapping(path = "name/{name}")
+    @GetMapping(path = "name/{name}")
     public List<User> findByName(@PathVariable String name) {
         List<User> users = userService.findByName(name);
         LOGGER.debug("User(s) with name '{}' found: {} (nb: {})", name, users, users.size());

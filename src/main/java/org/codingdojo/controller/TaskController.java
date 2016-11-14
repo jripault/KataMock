@@ -26,28 +26,28 @@ public class TaskController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public Task create(@RequestBody Task task) {
         task = taskService.save(task);
         LOGGER.debug("Task created: {}", task);
         return task;
     }
 
-    @RequestMapping
+    @GetMapping
     public List<Task> findAll() {
         List<Task> tasks = taskService.findAll();
         LOGGER.debug("Task(s): {} (nb: {})", tasks, tasks.size());
         return tasks;
     }
 
-    @RequestMapping(path = "{id}")
+    @GetMapping(path = "{id}")
     public Task findById(@PathVariable Long id) {
         Task task = taskService.findById(id);
         LOGGER.debug("Task with id '{}' found: {}", id, task);
         return task;
     }
 
-    @RequestMapping(path = "title/{title}")
+    @GetMapping(path = "title/{title}")
     public List<Task> findByTitle(@PathVariable String title) {
         List<Task> tasks = taskService.findByTitle(title);
         LOGGER.debug("Task(s) found with title '{}': {} (nb: {})", title, tasks, tasks.size());
@@ -55,13 +55,13 @@ public class TaskController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(path = "{id}")
     public void delete(@PathVariable Long id) {
         taskService.delete(id);
         LOGGER.debug("Task with id '{}' was deleted", id);
     }
 
-    @RequestMapping(path = "{taskId}/user/{userId}", method = RequestMethod.PUT)
+    @PutMapping(path = "{taskId}/user/{userId}")
     public Task assignTaskToUser(@PathVariable Long taskId, @PathVariable Long userId) {
         Task task = taskService.assignTaskToUser(taskId, userId);
         LOGGER.debug("Task with id '{}' was assigned to user with id '{}'", taskId, userId);
