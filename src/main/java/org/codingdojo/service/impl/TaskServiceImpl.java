@@ -26,12 +26,15 @@ public class TaskServiceImpl implements TaskService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TaskServiceImpl.class);
 
-    private final UserService userService;
     private final TaskRepository taskRepository;
+    private final UserService userService;
     private final NotificationService notificationService;
 
     @Autowired
     public TaskServiceImpl(TaskRepository taskRepository, UserService userService, NotificationService notificationService) {
+        Assert.notNull(taskRepository, "taskRepository must be not null");
+        Assert.notNull(userService, "userService must be not null");
+        Assert.notNull(notificationService, "notificationService must be not null");
         this.taskRepository = taskRepository;
         this.userService = userService;
         this.notificationService = notificationService;

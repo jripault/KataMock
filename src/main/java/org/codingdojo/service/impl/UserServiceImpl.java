@@ -26,6 +26,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, NotificationService notificationService) {
+        Assert.notNull(userRepository, "userRepository must be not null");
+        Assert.notNull(notificationService, "notificationService must be not null");
         this.userRepository = userRepository;
         this.notificationService = notificationService;
     }

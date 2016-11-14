@@ -10,8 +10,13 @@ import org.springframework.util.Assert;
 @Service
 public class NotificationServiceImpl implements NotificationService {
 
+    private final MailSender mailSender;
+
     @Autowired
-    private MailSender mailSender;
+    public NotificationServiceImpl(MailSender mailSender) {
+        Assert.notNull(mailSender, "mailSender must be not null");
+        this.mailSender = mailSender;
+    }
 
     @Override
     public void send(String email, String message) {
