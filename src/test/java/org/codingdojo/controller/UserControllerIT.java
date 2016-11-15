@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static java.time.LocalDateTime.now;
@@ -158,7 +159,7 @@ public class UserControllerIT {
 
         // Then
         response.andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(Arrays.asList(user1))));
+                .andExpect(content().json(objectMapper.writeValueAsString(Collections.singletonList(user1))));
     }
 
     @Test

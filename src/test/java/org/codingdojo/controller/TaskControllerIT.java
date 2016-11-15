@@ -26,6 +26,7 @@ import org.springframework.web.context.WebApplicationContext;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static java.time.LocalDateTime.now;
@@ -42,10 +43,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 public class TaskControllerIT {
 
+    private static final String BASE_URI = "/api/task/";
+
     @Rule
     public final GreenMailRule greenMail = new GreenMailRule(ServerSetupTest.SMTP);
-
-    private static final String BASE_URI = "/api/task/";
 
     @Autowired
     private WebApplicationContext context;
@@ -162,7 +163,7 @@ public class TaskControllerIT {
 
         // Then
         response.andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(Arrays.asList(task1))));
+                .andExpect(content().json(objectMapper.writeValueAsString(Collections.singletonList(task1))));
     }
 
     @Test

@@ -14,7 +14,6 @@ import java.util.Arrays;
 
 import static org.codingdojo.domain.TaskBuilder.aTask;
 import static org.codingdojo.domain.UserBuilder.anUser;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)

@@ -85,16 +85,20 @@ public class Task {
         return done;
     }
 
+    public boolean isNotDone() {
+        return !done;
+    }
+
     public void setDone(boolean done) {
         this.done = done;
     }
 
     public boolean isOverdue() {
-        return !isDone() && (deadLine != null) && now().isAfter(deadLine);
+        return isNotDone() && (deadLine != null) && now().isAfter(deadLine);
     }
 
     public boolean isAssignable() {
-        return !(isDone() || isOverdue());
+        return !(!isNotDone() || isOverdue());
     }
 
     @Override

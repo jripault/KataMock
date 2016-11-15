@@ -2,7 +2,6 @@ package org.codingdojo.repository;
 
 import org.assertj.core.api.Assertions;
 import org.codingdojo.domain.Task;
-import org.codingdojo.domain.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +10,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.validation.ConstraintViolationException;
-
-import java.util.Arrays;
 import java.util.List;
 
 import static java.time.LocalDateTime.now;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.codingdojo.domain.TaskBuilder.aTask;
-import static org.codingdojo.domain.UserBuilder.anUser;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest

@@ -14,11 +14,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static java.time.LocalDateTime.now;
 import static org.codingdojo.domain.TaskBuilder.aTask;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 /**
@@ -100,7 +100,7 @@ public class TaskControllerTest {
     public void shouldFindTaskByTitle() {
         // Given
         Task task = aTask().id(1L).title("taskTitle1").description("description1").deadLine(now()).build();
-        when(taskService.findByTitle(task.getTitle())).thenReturn(Arrays.asList(task));
+        when(taskService.findByTitle(task.getTitle())).thenReturn(Collections.singletonList(task));
 
         // When
         List<Task> actualTasks = controller.findByTitle(task.getTitle());

@@ -20,8 +20,6 @@ import static java.time.LocalDateTime.now;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.codingdojo.domain.TaskBuilder.aTask;
 import static org.codingdojo.domain.UserBuilder.anUser;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)

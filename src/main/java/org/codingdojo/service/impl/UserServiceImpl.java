@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
         List<User> admins = this.userRepository.findByRole(ADMIN);
 
         if (!CollectionUtils.isEmpty(tasks) && !CollectionUtils.isEmpty(admins)) {
-            tasks.stream().filter(task -> !task.isDone()).forEach(task -> {
+            tasks.stream().filter(task -> task.isNotDone()).forEach(task -> {
                 for (User admin : admins) {
                     notificationService.send(admin.getEmail(), String.format("User with id: %s will be deleted (%d task(s) must be reassigned)", id, tasks.size()));
                 }
