@@ -51,17 +51,17 @@ public class UserController {
         return user;
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping(path = "{id}")
-    public void delete(@PathVariable Long id) {
-        userService.delete(id);
-        LOGGER.debug("User with id '{}' was deleted", id);
-    }
-
     @GetMapping(path = "name/{name}")
     public List<User> findByName(@PathVariable String name) {
         List<User> users = userService.findByName(name);
         LOGGER.debug("User(s) with name '{}' found: {} (nb: {})", name, users, users.size());
         return users;
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping(path = "{id}")
+    public void delete(@PathVariable Long id) {
+        userService.delete(id);
+        LOGGER.debug("User with id '{}' was deleted", id);
     }
 }
