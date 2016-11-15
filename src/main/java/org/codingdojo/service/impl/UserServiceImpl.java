@@ -1,39 +1,35 @@
 package org.codingdojo.service.impl;
 
-import org.codingdojo.domain.Role;
 import org.codingdojo.domain.Task;
 import org.codingdojo.domain.User;
 import org.codingdojo.repository.UserRepository;
 import org.codingdojo.service.NotificationService;
-import org.codingdojo.service.TaskService;
+import org.codingdojo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Transactional
 @Service
-public class UserServiceImpl implements org.codingdojo.service.UserService {
-
-    @Autowired
-    private TaskService taskService;
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-
-    @Inject
-    private NotificationService notificationService;
+    private final NotificationService notificationService;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, NotificationService notificationService) {
+        Assert.notNull(userRepository, "userRepository must be not null");
+        Assert.notNull(notificationService, "notificationService must be not null");
         this.userRepository = userRepository;
+        this.notificationService = notificationService;
     }
 
     @Override
     public User save(User User) {
-        Assert.notNull(User, "User should be not null");
+        Assert.notNull(User, "user should be not null");
         return userRepository.save(User);
     }
 
@@ -52,28 +48,12 @@ public class UserServiceImpl implements org.codingdojo.service.UserService {
 
     @Override
     public List<User> findByName(String name) {
+        Assert.notNull(name, "name should be not null");
         return userRepository.findByName(name);
     }
 
     @Override
     public void delete(Long id) {
-        Assert.notNull(id, "id should be not null");
-        try {
-            User user = this.findById(id);
-            List<Task> tasks = user.getTasks();
-            User admin = this.userRepository.findByRole(Role.ADMIN);
 
-            userRepository.delete(id);
-
-            for (Task task : tasks) {
-                if(!task.isDone()) {
-                    notificationService.send(admin.getEmail(), "message");
-                }
-            }
-
-        } catch (Exception e) {
-            System.out.println("Error deleting user " + id);
-            e.printStackTrace();
-        }
     }
 }

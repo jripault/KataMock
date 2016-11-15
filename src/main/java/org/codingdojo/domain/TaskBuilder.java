@@ -2,11 +2,8 @@ package org.codingdojo.domain;
 
 import java.time.LocalDateTime;
 
-/**
- * User: JRI <julien.ripault@atos.net>
- * Date: 26/05/2016
- */
 public class TaskBuilder {
+
     private LocalDateTime creationDate = LocalDateTime.now();
     private Long id;
     private String title;
@@ -14,7 +11,6 @@ public class TaskBuilder {
     private User user;
     private LocalDateTime deadLine;
     private boolean done = false;
-    private boolean overdue;
 
     private TaskBuilder() {
     }
@@ -58,13 +54,8 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder overdue(boolean overdue) {
-        this.overdue = overdue;
-        return this;
-    }
-
     public TaskBuilder but() {
-        return aTask().creationDate(creationDate).id(id).title(title).description(description).user(user).deadLine(deadLine).done(done).overdue(overdue);
+        return aTask().creationDate(creationDate).id(id).title(title).description(description).user(user).deadLine(deadLine).done(done);
     }
 
     public Task build() {
@@ -76,7 +67,6 @@ public class TaskBuilder {
         task.setUser(user);
         task.setDeadLine(deadLine);
         task.setDone(done);
-        task.setOverdue(overdue);
         return task;
     }
 }

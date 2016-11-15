@@ -2,10 +2,6 @@ package org.codingdojo.domain;
 
 import java.util.List;
 
-/**
- * User: JRI <julien.ripault@atos.net>
- * Date: 26/05/2016
- */
 public class UserBuilder {
     private String email;
     private Long id;

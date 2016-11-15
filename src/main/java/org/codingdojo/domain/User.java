@@ -1,6 +1,8 @@
 package org.codingdojo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -27,43 +29,48 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Task> tasks;
 
-    public String getEmail() {
-        return email;
-    }
-
     public Long getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Role getRole() {
+        return role;
     }
 
     public void setRole(Role role) {
         this.role = role;
     }
 
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }

@@ -1,8 +1,9 @@
 package org.codingdojo.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import org.codingdojo.domain.Task;
 import org.codingdojo.service.TaskService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.Assert;
@@ -10,10 +11,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Slf4j
 @RestController
 @RequestMapping(path = "/api/task")
 public class TaskController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TaskController.class);
 
     private final TaskService taskService;
 
@@ -24,40 +26,45 @@ public class TaskController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public Task create(@RequestBody Task task) {
-        return taskService.save(task);
-    }
-
-    @RequestMapping
-    public List<Task> findAll() {
-        List<Task> tasks = taskService.findAll();
-        log.debug("Task(s): {} (nb: {})", tasks, tasks.size());
-        return tasks;
-    }
-
-    @RequestMapping(path = "{id}")
-    public Task findById(@PathVariable Long id) {
-        Task task = taskService.findById(id);
-        log.debug("Task with id '{}' found: {}", id, task);
+        task = taskService.save(task);
+        LOGGER.debug("Task created: {}", task);
         return task;
     }
 
-    @RequestMapping(path = "title/{title}")
+    @GetMapping
+    public List<Task> findAll() {
+        List<Task> tasks = taskService.findAll();
+        LOGGER.debug("Task(s): {} (nb: {})", tasks, tasks.size());
+        return tasks;
+    }
+
+    @GetMapping(path = "{id}")
+    public Task findById(@PathVariable Long id) {
+        Task task = taskService.findById(id);
+        LOGGER.debug("Task with id '{}' found: {}", id, task);
+        return task;
+    }
+
+    @GetMapping(path = "title/{title}")
     public List<Task> findByTitle(@PathVariable String title) {
         List<Task> tasks = taskService.findByTitle(title);
-        log.debug("Task(s) found with title '{}': {} (nb: {})", title, tasks, tasks.size());
+        LOGGER.debug("Task(s) found with title '{}': {} (nb: {})", title, tasks, tasks.size());
         return tasks;
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(path = "{id}")
     public void delete(@PathVariable Long id) {
         taskService.delete(id);
+        LOGGER.debug("Task with id '{}' was deleted", id);
     }
 
-    @RequestMapping(path = "{taskId}/user/{userId}", method = RequestMethod.PUT)
+    @PutMapping(path = "{taskId}/user/{userId}")
     public Task assignTaskToUser(@PathVariable Long taskId, @PathVariable Long userId) {
-        return taskService.assignTaskToUser(taskId, userId);
+        Task task = taskService.assignTaskToUser(taskId, userId);
+        LOGGER.debug("Task with id '{}' was assigned to user with id '{}'", taskId, userId);
+        return task;
     }
 }

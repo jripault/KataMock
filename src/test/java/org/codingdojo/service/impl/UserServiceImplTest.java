@@ -1,6 +1,5 @@
 package org.codingdojo.service.impl;
 
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -9,12 +8,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class UserServiceImplTest {
 
     @Test
-    public void shouldNotifyOnUserDeletion() throws Exception {
+    public void shouldNotifyAdminOnUserDeletion() throws Exception {
         // GIVEN
 
         // WHEN
 
         // THEN
-
     }
 }

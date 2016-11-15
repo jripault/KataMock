@@ -1,6 +1,7 @@
 package org.codingdojo.exception;
 
 public class NoSundayRuleException extends RuntimeException {
+
     public NoSundayRuleException() {
         super();
     }

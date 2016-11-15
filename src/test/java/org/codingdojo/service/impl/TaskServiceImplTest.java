@@ -1,17 +1,14 @@
 package org.codingdojo.service.impl;
 
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-
 @RunWith(MockitoJUnitRunner.class)
 public class TaskServiceImplTest {
 
-
     @Test
-    public void shouldAssignTaskToUser() throws Exception {
+    public void shouldAssignTaskToUser() {
         // GIVEN
 
         // WHEN
@@ -20,7 +17,7 @@ public class TaskServiceImplTest {
     }
 
     @Test
-    public void shouldAssignTaskFromPreviousUserToNewUser() throws Exception {
+    public void shouldAssignTaskFromPreviousUserToNewUser() {
         // GIVEN
 
         // WHEN
@@ -29,7 +26,7 @@ public class TaskServiceImplTest {
     }
 
     @Test
-    public void shouldNotAssignTaskBecauseOverdue() throws Exception {
+    public void shouldNotAssignTaskBecauseOverdue() {
         // GIVEN
 
         // WHEN
@@ -38,12 +35,11 @@ public class TaskServiceImplTest {
     }
 
     @Test
-    public void shouldAssignMultipleTasks() throws Exception {
+    public void shouldAssignMultipleTasks() {
         // GIVEN
 
         // WHEN
 
         // THEN
     }
-
 }

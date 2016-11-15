@@ -1,6 +1,7 @@
 package org.codingdojo.exception;
 
 public class TaskNotAssignableException extends RuntimeException {
+
     public TaskNotAssignableException() {
         super();
     }
