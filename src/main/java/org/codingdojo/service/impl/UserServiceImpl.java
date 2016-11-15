@@ -6,8 +6,6 @@ import org.codingdojo.exception.ResourceNotFoundException;
 import org.codingdojo.repository.UserRepository;
 import org.codingdojo.service.NotificationService;
 import org.codingdojo.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,13 +69,11 @@ public class UserServiceImpl implements UserService {
         List<User> admins = this.userRepository.findByRole(ADMIN);
 
         if (!CollectionUtils.isEmpty(tasks) && !CollectionUtils.isEmpty(admins)) {
-            for (Task task : tasks) {
-                if (!task.isDone()) {
-                    for (User admin : admins) {
-                        notificationService.send(admin.getEmail(), String.format("User with id: %s will be deleted (%d task(s) must be reassigned)", id, tasks.size()));
-                    }
+            tasks.stream().filter(task -> !task.isDone()).forEach(task -> {
+                for (User admin : admins) {
+                    notificationService.send(admin.getEmail(), String.format("User with id: %s will be deleted (%d task(s) must be reassigned)", id, tasks.size()));
                 }
-            }
+            });
         }
 
         userRepository.delete(id);
