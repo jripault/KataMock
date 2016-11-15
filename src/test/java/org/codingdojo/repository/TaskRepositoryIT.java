@@ -53,10 +53,10 @@ public class TaskRepositoryIT {
     public void shouldFindTaskByTitle() {
         // Given
         Task task1 = aTask().title("taskTitle1").description("description1").deadLine(now()).build();
-        Task task2 = aTask().title("taskTitle2").description("description2").deadLine(now()).build();
-        Task task3 = aTask().title("taskTitle3").description("description3").deadLine(now()).build();
         entityManager.persist(task1);
+        Task task2 = aTask().title("taskTitle2").description("description2").deadLine(now()).build();
         entityManager.persist(task2);
+        Task task3 = aTask().title("taskTitle3").description("description3").deadLine(now()).build();
         entityManager.persist(task3);
 
         // When
@@ -67,13 +67,13 @@ public class TaskRepositoryIT {
     }
 
     @Test
-    public void shouldFindAllTasksByTitle() {
+    public void shouldFindAllTasksWithSameTitle() {
         // Given
         Task task1 = aTask().title("taskTitle").description("description1").deadLine(now()).build();
-        Task task2 = aTask().title("taskTitle2").description("description2").deadLine(now()).build();
-        Task task3 = aTask().title("taskTitle").description("description3").deadLine(now()).build();
         entityManager.persist(task1);
+        Task task2 = aTask().title("taskTitle2").description("description2").deadLine(now()).build();
         entityManager.persist(task2);
+        Task task3 = aTask().title("taskTitle").description("description3").deadLine(now()).build();
         entityManager.persist(task3);
 
         // When
