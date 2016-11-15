@@ -24,29 +24,23 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
 
-/**
- * User: JRI <julien.ripault@atos.net>
- * Date: 29/03/2016
- */
-//@PrepareForTest(LocalDateTime.class)
-//@RunWith(PowerMockRunner.class)
 @RunWith(MockitoJUnitRunner.class)
 public class TaskServiceImplTest {
 
     @InjectMocks
-    TaskServiceImpl taskService;
+    private TaskServiceImpl taskService;
 
     @Mock
-    TaskRepository taskRepository;
+    private TaskRepository taskRepository;
 
     @Mock
-    UserService userService;
+    private UserService userService;
 
     @Mock
-    NotificationService notificationService;
+    private NotificationService notificationService;
 
     @Test
-    public void shouldAssignTaskToUser() throws Exception {
+    public void shouldAssignTaskToUser() {
         // GIVEN
         Task task = aTask().id(1L).title("taskTitle").description("description").deadLine(now().plusDays(1)).build();
         when(taskRepository.findOne(1L)).thenReturn(task);
@@ -63,7 +57,7 @@ public class TaskServiceImplTest {
     }
 
     @Test
-    public void shouldAssignTaskFromPreviousUserToNewUser() throws Exception {
+    public void shouldAssignTaskFromPreviousUserToNewUser() {
         // GIVEN
         User previousUser = anUser().id(10L).name("previousUser").email("previous.user.email@test.org").build();
         Task task = aTask().id(1L).title("taskTitle").description("description").deadLine(now().plusDays(1)).user(previousUser).build();
@@ -82,19 +76,19 @@ public class TaskServiceImplTest {
     }
 
     @Test(expected = TaskNotAssignableException.class)
-    public void shouldNotAssignTaskBecauseOverdue() throws Exception {
+    public void shouldNotAssignTaskBecauseOverdue() {
         // GIVEN
         Task task = aTask().id(1L).title("taskTitle").description("description").deadLine(now().minusDays(1)).build();
         when(taskRepository.findOne(1L)).thenReturn(task);
 
         // WHEN
-        Task assignedTask = taskService.assignTaskToUser(task.getId(), 10L);
+        taskService.assignTaskToUser(task.getId(), 10L);
 
         // THEN
     }
 
     @Test
-    public void shouldAssignMultipleTasks() throws Exception {
+    public void shouldAssignMultipleTasks() {
         // GIVEN
         List<Long> taskIds = Stream.of(1L, 2L, 3L).collect(Collectors.toList());
         TaskServiceImpl taskService = spy(new TaskServiceImpl(taskRepository, userService, notificationService));
@@ -108,5 +102,4 @@ public class TaskServiceImplTest {
         verify(taskService, times(1)).assignTaskToUser(2L, 10L);
         verify(taskService, times(1)).assignTaskToUser(3L, 10L);
     }
-
 }

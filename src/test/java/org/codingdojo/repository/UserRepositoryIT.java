@@ -20,7 +20,7 @@ public class UserRepositoryIT {
     private UserRepository repository;
 
     @Test
-    public void shouldSaveValidUser() throws InterruptedException {
+    public void shouldCreateValidUser() {
         // Given
         User user = anUser().name("userName1").email("user.email1@test.org").build();
 
@@ -32,9 +32,9 @@ public class UserRepositoryIT {
     }
 
     @Test(expected = ConstraintViolationException.class)
-    public void shouldThrowConstraintViolationExceptionIfUserIsInvalid() {
+    public void shouldThrowConstraintViolationExceptionWhenCreateInvalidUser() {
         // Given
-        User user = anUser().name("userName1").email("user.email1test.org").build();
+        User user = anUser().name("userName1").email("invalid_email.org").build();
 
         // When
         repository.save(user);
