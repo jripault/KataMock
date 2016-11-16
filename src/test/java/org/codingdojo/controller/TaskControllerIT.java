@@ -208,7 +208,7 @@ public class TaskControllerIT {
         ResultActions response = mockMvc.perform(delete(BASE_URI + "/{id}", -1L));
 
         // Then
-        response.andExpect(status().isBadRequest());
+        response.andExpect(status().isNotFound());
     }
 
     @Test

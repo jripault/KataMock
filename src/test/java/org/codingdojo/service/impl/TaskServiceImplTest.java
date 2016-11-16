@@ -120,7 +120,7 @@ public class TaskServiceImplTest {
         TaskServiceImpl taskService = spy(new TaskServiceImpl(taskRepository, userService, notificationService));
         doReturn(new Task()).when(taskService).assignTaskToUser(anyLong(), anyLong());
 
-        // When:!
+        // When
         taskService.assignTasksToUser(taskIds, 10L);
 
         // Then
