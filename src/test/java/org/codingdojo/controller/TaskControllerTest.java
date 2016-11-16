@@ -110,7 +110,7 @@ public class TaskControllerTest {
     }
 
     @Test
-    public void shouldFindAllTaskByTitle() {
+    public void shouldFindAllTasksWithSameTitle() {
         // Given
         Task task1 = aTask().id(1L).title("taskTitle").description("description1").deadLine(now()).build();
         Task task2 = aTask().id(2L).title("taskTitle2").description("description2").deadLine(now()).build();
@@ -159,7 +159,7 @@ public class TaskControllerTest {
     }
 
     @Test(expected = TaskNotAssignableException.class)
-    public void shouldThrowTaskNotAssignableExceptionWhenAssignOverdueTaskToUser() throws Exception {
+    public void shouldThrowTaskNotAssignableExceptionWhenAssignOverdueOrDoneTaskToUser() throws Exception {
         // Given
         when(taskService.assignTaskToUser(1L, 2L)).thenThrow(new TaskNotAssignableException("task is not assignable (done or overdue)"));
 

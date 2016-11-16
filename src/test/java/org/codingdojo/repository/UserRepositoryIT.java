@@ -17,7 +17,7 @@ import static org.codingdojo.domain.Role.USER;
 import static org.codingdojo.domain.UserBuilder.anUser;
 
 @RunWith(SpringRunner.class)
-@DataJpaTest
+@DataJpaTest(showSql = false)
 public class UserRepositoryIT {
 
     @Autowired
