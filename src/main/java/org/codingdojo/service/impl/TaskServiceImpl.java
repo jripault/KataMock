@@ -2,7 +2,6 @@ package org.codingdojo.service.impl;
 
 import org.codingdojo.domain.Task;
 import org.codingdojo.domain.User;
-import org.codingdojo.exception.NoSundayRuleException;
 import org.codingdojo.exception.ResourceNotFoundException;
 import org.codingdojo.exception.TaskNotAssignableException;
 import org.codingdojo.repository.TaskRepository;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import java.time.DayOfWeek;
 import java.util.List;
 
 @Transactional
@@ -42,9 +40,6 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Task save(Task task) {
         Assert.notNull(task, "task should be not null");
-        if (task.getCreationDate().getDayOfWeek() == DayOfWeek.SUNDAY) {
-            throw new NoSundayRuleException("No task shall be created on a sunday.");
-        }
         return taskRepository.save(task);
     }
 
@@ -75,6 +70,10 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void delete(Long id) {
         Assert.notNull(id, "id should be not null");
+        Task task = this.findById(id);
+        if (task == null) {
+            throw new ResourceNotFoundException(String.format("Task with id: %s not found", id));
+        }
         taskRepository.delete(id);
     }
 
@@ -92,8 +91,8 @@ public class TaskServiceImpl implements TaskService {
         User previousUser = task.getUser();
         task.setUser(user);
 
-        sendNotifications(task, user, true);
-        sendNotifications(task, previousUser, false);
+        sendNotifications(user, task, true);
+        sendNotifications(previousUser, task, false);
         return task;
     }
 
@@ -111,7 +110,7 @@ public class TaskServiceImpl implements TaskService {
         }
     }
 
-    protected void sendNotifications(Task task, User user, boolean assignation) {
+    protected void sendNotifications(User user, Task task, boolean assignation) {
         if (user != null) {
             if (user.getEmail() != null) {
                 this.notificationService.send(user.getEmail(), String.format("The task: '%s' has been assigned to %s.", task.getTitle(), assignation ? "you" : "somebody else"));

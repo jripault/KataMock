@@ -163,7 +163,7 @@ public class UserControllerIT {
     }
 
     @Test
-    public void shouldFindAllUsersByName() throws Exception {
+    public void shouldFindAllUsersWithSameName() throws Exception {
         // Given
         User user1 = anUser().name("userName").email("user.email1@test.org").build();
         User user2 = anUser().name("userName2").email("user.email2@test.org").build();

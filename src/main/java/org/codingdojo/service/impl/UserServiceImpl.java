@@ -47,7 +47,11 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public User findById(Long id) {
         Assert.notNull(id, "id should be not null");
-        return userRepository.findOne(id);
+        User user = userRepository.findOne(id);
+        if (user == null) {
+            throw new ResourceNotFoundException(String.format("User with id: %s not found", id));
+        }
+        return user;
     }
 
     @Override
@@ -59,7 +63,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Long id) {
         Assert.notNull(id, "id should be not null");
-
         User user = this.findById(id);
         if (user == null) {
             throw new ResourceNotFoundException(String.format("User with id: %s not found", id));
