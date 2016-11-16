@@ -167,7 +167,7 @@ public class TaskControllerIT {
     }
 
     @Test
-    public void shouldFindAllTasksByTitle() throws Exception {
+    public void shouldFindAllTasksWithSameTitle() throws Exception {
         // Given
         Task task1 = aTask().title("taskTitle").description("description1").deadLine(now()).build();
         Task task2 = aTask().title("taskTitle").description("description2").deadLine(now()).build();
@@ -208,11 +208,11 @@ public class TaskControllerIT {
         ResultActions response = mockMvc.perform(delete(BASE_URI + "/{id}", -1L));
 
         // Then
-        response.andExpect(status().isBadRequest());
+        response.andExpect(status().isNotFound());
     }
 
     @Test
-    public void shouldAssignTaskToUser() throws Exception {
+    public void shouldAssignTaskToUserAndNotifyHim() throws Exception {
         // Given
         Task task = repository.save(aTask().title("taskTitle1").description("description1").deadLine(now().plusMinutes(5)).build());
         assertThat(repository.exists(task.getId()));
@@ -236,7 +236,7 @@ public class TaskControllerIT {
     }
 
     @Test
-    public void shouldAssignTaskToUserAndNotifyPreviousUser() throws Exception {
+    public void shouldAssignTaskFromPreviousUserToNewUserAndNotifyThem() throws Exception {
         // Given
         User previousUser = anUser().name("userName1").email("user.email1@test.org").build();
         User user = anUser().name("userName2").email("user.email2@test.org").build();

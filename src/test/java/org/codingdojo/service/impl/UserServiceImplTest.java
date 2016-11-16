@@ -4,15 +4,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.junit.Assert.fail;
+
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceImplTest {
 
     @Test
-    public void shouldNotifyAdminOnUserDeletion() throws Exception {
-        // GIVEN
+    public void shouldDeleteUserAndNotifyAdmin() throws Exception {
+        // Given
 
-        // WHEN
+        // When
 
-        // THEN
+        // Then
+        fail("Not yet implemented!");
     }
 }

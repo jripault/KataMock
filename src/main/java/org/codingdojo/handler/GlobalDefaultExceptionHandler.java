@@ -1,6 +1,5 @@
 package org.codingdojo.handler;
 
-import org.codingdojo.exception.NoSundayRuleException;
 import org.codingdojo.exception.ResourceNotFoundException;
 import org.codingdojo.exception.TaskNotAssignableException;
 import org.hibernate.ObjectNotFoundException;
@@ -26,13 +25,10 @@ import javax.xml.bind.ValidationException;
 @ControllerAdvice
 public class GlobalDefaultExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = {
-            NoSundayRuleException.class,
-            TaskNotAssignableException.class
-    })
+    @ExceptionHandler(value = {TaskNotAssignableException.class})
     public ResponseEntity<Object> handleBusinessException(Exception ex, WebRequest request) {
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-        if (ex instanceof NoSundayRuleException || ex instanceof TaskNotAssignableException) {
+        if (ex instanceof TaskNotAssignableException) {
             status = HttpStatus.BAD_REQUEST;
         }
 

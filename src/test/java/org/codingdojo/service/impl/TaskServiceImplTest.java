@@ -4,42 +4,68 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.junit.Assert.fail;
+
 @RunWith(MockitoJUnitRunner.class)
 public class TaskServiceImplTest {
 
     @Test
     public void shouldAssignTaskToUser() {
-        // GIVEN
+        // Given
 
-        // WHEN
+        // When
 
-        // THEN
+        // Then
+        fail("Not yet implemented!");
     }
 
     @Test
-    public void shouldAssignTaskFromPreviousUserToNewUser() {
-        // GIVEN
+    public void shouldAssignTaskToUserAndNotifyHim() {
+        // Given
 
-        // WHEN
+        // When
 
-        // THEN
+        // Then
+        fail("Not yet implemented!");
     }
 
     @Test
-    public void shouldNotAssignTaskBecauseOverdue() {
-        // GIVEN
+    public void shouldAssignTaskFromPreviousUserToNewUserAndNotifyThem() {
+        // Given
 
-        // WHEN
+        // When
 
-        // THEN
+        // Then
+        fail("Not yet implemented!");
     }
 
     @Test
-    public void shouldAssignMultipleTasks() {
-        // GIVEN
+    public void shouldNotAssignOverdueTaskToUser() {
+        // Given
 
-        // WHEN
+        // When
 
-        // THEN
+        // Then
+        fail("Not yet implemented!");
+    }
+
+    @Test
+    public void shouldNotAssignDoneTaskToUser() {
+        // Given
+
+        // When
+
+        // Then
+        fail("Not yet implemented!");
+    }
+
+    @Test
+    public void shouldAssignMultipleTasksToUserAndNotifyHim() {
+        // Given
+
+        // When
+
+        // Then
+        fail("Not yet implemented!");
     }
 }
