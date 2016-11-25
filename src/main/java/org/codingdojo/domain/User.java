@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -67,6 +68,20 @@ public class User {
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public void addTask(Task task) {
+        if (tasks == null) {
+            tasks = new ArrayList<>();
+        }
+        task.setUser(this);
+        tasks.add(task);
+    }
+
+    public void addTasks(Task... tasks) {
+        for (Task task : tasks) {
+            addTask(task);
+        }
     }
 
     @Override

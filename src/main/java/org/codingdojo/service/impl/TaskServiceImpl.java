@@ -89,7 +89,7 @@ public class TaskServiceImpl implements TaskService {
 
         User user = this.userService.findById(userId);
         User previousUser = task.getUser();
-        task.setUser(user);
+        user.addTask(task);
 
         sendNotifications(user, task, true);
         sendNotifications(previousUser, task, false);
@@ -100,7 +100,6 @@ public class TaskServiceImpl implements TaskService {
     public void assignTasksToUser(List<Long> taskIds, Long userId) {
         Assert.notEmpty(taskIds, "taskId should be not null or empty");
         Assert.notNull(userId, "userId should be not null");
-
         for (Long taskId : taskIds) {
             try {
                 assignTaskToUser(taskId, userId);
