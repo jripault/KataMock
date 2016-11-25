@@ -75,7 +75,14 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task assignTaskToUser(Long taskId, Long userId) {
-        throw new NotImplementedException("Assign task to user not yet implemented!");
+        Assert.notNull(taskId, "taskId should be not null");
+        Assert.notNull(userId, "userId should be not null");
+
+        Task task = this.findById(taskId);
+        User user = this.userService.findById(userId);
+        user.addTask(task);
+
+        return task;
     }
 
     @Override
